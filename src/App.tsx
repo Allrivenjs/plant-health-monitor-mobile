@@ -1,4 +1,4 @@
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import {ThemeProvider} from './context';
 import {HomeScreen} from './screens/HomeScreen';
 import { defaultTheme } from './themes/defaultTheme';
