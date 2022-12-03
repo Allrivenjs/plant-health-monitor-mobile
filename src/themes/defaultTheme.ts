@@ -20,6 +20,10 @@ export const defaultTheme: Theme = {
       fontSize: 30,
       fontFamily: 'Lato-Bold',
     },
+    heading3: {
+      fontSize: 24,
+      fontFamily: 'Lato-Bold',
+    },
   },
   shadow: {
     shadowColor: "#000",

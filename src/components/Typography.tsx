@@ -5,7 +5,7 @@ import { StyleProp, Text, TextStyle } from 'react-native';
 import { useTheme } from '../hooks';
 
 interface Props {
-  size?: 'body' | 'heading1',
+  size?: 'body' | 'heading1' | 'heading3',
   children: ReactNode;
   style?: TextStyle;
 };
