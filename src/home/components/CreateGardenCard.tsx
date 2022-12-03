@@ -1,13 +1,14 @@
-import {FC} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {useTheme} from '../hooks';
+import { Typography } from '../../components';
 
-import {Typography} from './Typography';
+import { useTheme } from '../../hooks';
+
 
 export const CreateGardenCard = () => {
-  const {shadow, colors } = useTheme();
+  const {colors } = useTheme();
 
   const styles = StyleSheet.create({
     gardenCardContainer: {
@@ -31,7 +32,7 @@ export const CreateGardenCard = () => {
       <View style={{flex: 8, justifyContent: 'center', alignItems: 'center'}}>
 
         <Image
-          source={require('../../assets/images/plantsiloutte.png')}
+          source={require('../../../assets/images/plantsiloutte.png')}
           style={{
             height: 210,
             width: 136,

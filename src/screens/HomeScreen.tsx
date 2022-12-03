@@ -1,10 +1,8 @@
-import {FlatList, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {CreateGardenCard} from '../components/CreateGardenCard';
+import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
-import {GardenCard} from '../components/GardenCard';
-import {Input} from '../components/Input';
-import {LastActions} from '../components/LastActions';
-import {Typography} from '../components/Typography';
+import {Input, Typography} from '../components';
+
+import {CreateGardenCard, GardenCard, LastActions} from '../home/components';
 
 import {useTheme} from '../hooks';
 
@@ -58,7 +56,7 @@ export const HomeScreen = () => {
   });
 
   return (
-  <ScrollView>
+    <ScrollView>
       <StatusBar backgroundColor={colors.background} barStyle='dark-content' />
 
       <View style={styles.screenContainer}>
@@ -96,7 +94,7 @@ export const HomeScreen = () => {
           }
         />
 
-        <View style={{paddingHorizontal: 20, marginVertical: 20, }}>
+        <View style={{paddingHorizontal: 20, marginVertical: 20}}>
           <LastActions />
         </View>
       </View>

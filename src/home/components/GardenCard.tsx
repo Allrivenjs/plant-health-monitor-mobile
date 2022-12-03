@@ -1,7 +1,9 @@
 import {FC} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {useTheme} from '../hooks';
-import {Typography} from './Typography';
+import {Image, StyleSheet, View} from 'react-native';
+
+import {Typography} from '../../components';
+
+import {useTheme} from '../../hooks';
 
 interface GardenCardProps {
   name: string;
@@ -9,7 +11,7 @@ interface GardenCardProps {
 }
 
 export const GardenCard: FC<GardenCardProps> = ({name, source}) => {
-  const {shadow, colors, textStyles} = useTheme();
+  const {shadow, colors} = useTheme();
 
   const styles = StyleSheet.create({
     gardenCardContainer: {

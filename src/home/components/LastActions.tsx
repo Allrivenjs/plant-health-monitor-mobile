@@ -1,14 +1,21 @@
-import {FC} from 'react';
 import {View} from 'react-native';
-import {useTheme} from '../hooks';
-import { ActionCard } from './ActionCard';
-import {Typography} from './Typography';
+import {Typography} from '../../components';
+
+import {useTheme} from '../../hooks';
+
+import {ActionCard} from './';
 
 export const LastActions = () => {
   const {colors} = useTheme();
   return (
     <View>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 10,
+        }}>
         <Typography
           size='heading3'
           style={{fontFamily: 'Lato-Regular', color: colors.gray}}>
@@ -17,10 +24,13 @@ export const LastActions = () => {
 
         <Typography
           size='body'
-          style={{fontFamily: 'Lato-Regular', color: colors.primary, textDecorationLine: 'underline'}}>
+          style={{
+            fontFamily: 'Lato-Regular',
+            color: colors.primary,
+            textDecorationLine: 'underline',
+          }}>
           Mostrar más
         </Typography>
-
       </View>
 
       <ActionCard />
@@ -30,7 +40,6 @@ export const LastActions = () => {
       <ActionCard />
       <ActionCard />
       <ActionCard />
-
     </View>
   );
 };
