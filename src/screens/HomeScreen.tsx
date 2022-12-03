@@ -1,7 +1,9 @@
-import {FlatList, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {FlatList, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {CreateGardenCard} from '../components/CreateGardenCard';
 
 import {GardenCard} from '../components/GardenCard';
 import {Input} from '../components/Input';
+import {LastActions} from '../components/LastActions';
 import {Typography} from '../components/Typography';
 
 import {useTheme} from '../hooks';
@@ -56,15 +58,15 @@ export const HomeScreen = () => {
   });
 
   return (
-    <>
+  <ScrollView>
       <StatusBar backgroundColor={colors.background} barStyle='dark-content' />
 
       <View style={styles.screenContainer}>
         <View style={styles.headerContainer}>
-          <Typography size='heading1'>Manage your </Typography>
+          <Typography size='heading1'>Administra tus </Typography>
           <View>
             <Typography size='heading1' style={{color: colors.primary}}>
-              gardens
+              jardines
             </Typography>
             <View style={styles.headerDecorator} />
           </View>
@@ -76,23 +78,28 @@ export const HomeScreen = () => {
 
         <FlatList
           horizontal
-          style={{marginTop: 32, paddingHorizontal: 20, flexDirection: 'row'}}
+          style={{
+            paddingHorizontal: 20,
+            flexDirection: 'row',
+            flexGrow: 0,
+          }}
           data={mockGardenCardData}
           renderItem={({item}) => (
             <GardenCard name={item.name} source={item.source} />
           )}
           keyExtractor={item => item.id}
           ListFooterComponent={
-            <>
-              <GardenCard
-                name='Create new garden'
-                source={require('../../assets/images/plant1.png')}
-              />
-              <View style={{ width: 40, height: 40 }} />
-            </>
+            <View style={{flexDirection: 'row'}}>
+              <CreateGardenCard />
+              <View style={{width: 30}} />
+            </View>
           }
         />
+
+        <View style={{paddingHorizontal: 20, marginVertical: 20, }}>
+          <LastActions />
+        </View>
       </View>
-    </>
+    </ScrollView>
   );
 };

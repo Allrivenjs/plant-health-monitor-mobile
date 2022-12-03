@@ -10,6 +10,10 @@ export const defaultTheme: Theme = {
     black: '#1A1D1C',
     gray: '#898989',
     lightGray: 'rgba(26, 29, 28, 0.36)',
+    green: '#D8E7B4',
+    blue: '#B4CFE7',
+    red: '#E7B7B4',
+    yellow: '#E6E7B4'
   },
   textStyles: {
     body: {
@@ -21,7 +25,7 @@ export const defaultTheme: Theme = {
       fontFamily: 'Lato-Bold',
     },
     heading3: {
-      fontSize: 24,
+      fontSize: 23,
       fontFamily: 'Lato-Bold',
     },
   },
@@ -32,7 +36,7 @@ export const defaultTheme: Theme = {
       height: 1,
     },
     shadowOpacity: 0.04,
-    shadowRadius: 1.41,
+    shadowRadius: 0.5,
     elevation: 1,
   },
 };

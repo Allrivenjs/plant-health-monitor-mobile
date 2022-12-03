@@ -16,6 +16,8 @@ export const Typography:FC<Props> = ({ children, size = 'body', style }) => {
   return (
     <Text
       style={{ color: colors.text, ...textStyles[size], ...style }}
+      adjustsFontSizeToFit
+      numberOfLines={2}
     >
       { children }
     </Text>

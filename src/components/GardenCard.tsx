@@ -16,12 +16,11 @@ export const GardenCard: FC<GardenCardProps> = ({name, source}) => {
       backgroundColor: 'white',
       alignSelf: 'flex-start',
       justifyContent: 'center',
-      paddingHorizontal: 24,
-      paddingVertical: 16,
-      marginRight: 10,
+      marginRight: 20,
       borderRadius: 10,
-      width: 200,
-      height: 290,
+      width: 220,
+      height: 275,
+      marginVertical: 20,
       ...shadow,
     },
     decorationCircle: {
@@ -36,7 +35,7 @@ export const GardenCard: FC<GardenCardProps> = ({name, source}) => {
       backgroundColor: colors.background,
       borderRadius: 50,
       position: 'absolute',
-      bottom: 48,
+      bottom: 0,
       alignSelf: 'center',
       width: 50,
       height: 30,
@@ -44,24 +43,30 @@ export const GardenCard: FC<GardenCardProps> = ({name, source}) => {
     },
     cardTitle: {
       alignSelf: 'center',
-      textAlign: 'center'
+      textAlign: 'center',
     },
   });
 
   return (
     <View style={styles.gardenCardContainer}>
-      <View style={{ flex: 8}}>
+      <View style={{flex: 8, justifyContent: 'center', alignItems: 'center'}}>
         <View style={styles.shadowEllipse} />
         <View style={styles.decorationCircle} />
         <Image
           source={source}
           style={{
-            height: 220,
-            width: 146,
+            height: 210,
+            width: 136,
           }}
         />
       </View>
-      <View style={{ flex: 2 }}>
+      <View
+        style={{
+          flex: 2,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingHorizontal: 10,
+        }}>
         <Typography style={styles.cardTitle} size='heading3'>
           {name}
         </Typography>

@@ -21,4 +21,8 @@ export interface Colors {
   black: string;
   gray: string;
   lightGray: string;
+  green: string;
+  blue: string;
+  red: string;
+  yellow: string;
 };
