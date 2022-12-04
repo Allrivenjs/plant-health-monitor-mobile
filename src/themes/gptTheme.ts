@@ -1,12 +1,12 @@
 import { Theme } from '../interfaces';
 
-export const defaultTheme: Theme = {
+export const gptTheme: Theme = {
   currentTheme: 'default',
   dark: false,
   colors: {
-    background: '#F5F8FE',
+    background: '#C8E6C9',
     primary: '#66B992',
-    text: '#1A1D1C',
+    text: '#FFFFFF',
     black: '#1A1D1C',
     gray: '#898989',
     lightGray: 'rgba(26, 29, 28, 0.36)',

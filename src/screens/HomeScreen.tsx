@@ -5,8 +5,10 @@ import {Input, Typography} from '../components';
 import {CreateGardenCard, GardenCard, LastActions} from '../home/components';
 
 import {useTheme} from '../hooks';
+import { Action } from '../interfaces/action';
+import { Garden } from '../interfaces/garden';
 
-const mockGardenCardData = [
+const mockGardenCardData: Garden[] = [
   {
     id: '1',
     name: 'Veraneras',
@@ -27,6 +29,22 @@ const mockGardenCardData = [
     name: 'Mataratones',
     source: require('../../assets/images/plant1.png'),
   },
+];
+
+
+const mockActionData: Action[] = [
+  {
+    type: 'watering',
+    garden: mockGardenCardData[0],
+    description: 'El jardín ha sido regado',
+    lastTime: 'El ultimo regado fue hace 6 horas',
+  },
+  {
+    type: 'water-refill',
+    garden: mockGardenCardData[1],
+    description: 'El jardín tiene bajos niveles de agua',
+    lastTime: 'La ultima ves que se relleno el agua fue hace 2 días',
+  }
 ];
 
 export const HomeScreen = () => {
@@ -56,7 +74,7 @@ export const HomeScreen = () => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{ flex: 1 }}>
       <StatusBar backgroundColor={colors.background} barStyle='dark-content' />
 
       <View style={styles.screenContainer}>
@@ -95,7 +113,9 @@ export const HomeScreen = () => {
         />
 
         <View style={{paddingHorizontal: 20, marginVertical: 20}}>
-          <LastActions />
+          <LastActions
+            actions={mockActionData}
+          />
         </View>
       </View>
     </ScrollView>

@@ -1,11 +1,20 @@
+import { FC } from 'react';
+
 import {Image, StyleSheet, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {Typography} from '../../components';
+
 import {useTheme} from '../../hooks';
 
-export const ActionCard = () => {
+import { Action } from '../../interfaces/action';
+
+interface Props {
+  action: Action;
+};
+
+export const ActionCard: FC<Props> = ({ action }) => {
   const {shadow, colors} = useTheme();
 
   const styles = StyleSheet.create({
@@ -20,6 +29,7 @@ export const ActionCard = () => {
       ...shadow,
     },
   });
+
   return (
     <View style={styles.actionCardContainer}>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -42,12 +52,12 @@ export const ActionCard = () => {
           justifyContent: 'space-evenly',
           paddingHorizontal: 10,
         }}>
-        <Typography style={{fontFamily: 'Lato-Bold'}}>Garden #1</Typography>
+        <Typography style={{fontFamily: 'Lato-Bold'}}>{action.garden.name}</Typography>
         <Typography style={{fontSize: 14}}>
-          El jardin ha sido regado{' '}
+          {action.description}{' '}
         </Typography>
         <Typography style={{fontSize: 12, color: colors.gray}}>
-          El ultimo regado fue hace 6 horas
+          {action.lastTime}
         </Typography>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
