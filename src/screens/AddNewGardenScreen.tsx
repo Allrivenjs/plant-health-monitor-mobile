@@ -24,13 +24,12 @@ export const AddNewGardenScreen = () => {
       backgroundColor: 'white',
     },
     plantContainer: {
-      flex: 1,
+      height: 260,
       backgroundColor: colors.white,
       justifyContent: 'center',
       alignItems: 'center',
     },
     formContainer: {
-      flex: 2,
       alignItems: 'center',
       backgroundColor: colors.background,
       borderTopRightRadius: 32,
@@ -54,6 +53,7 @@ export const AddNewGardenScreen = () => {
               alignItems: 'center',
               borderBottomWidth: 3,
               borderColor: colors.primary,
+              marginVertical: 32,
             }}
           >
             <TextInput
@@ -62,6 +62,7 @@ export const AddNewGardenScreen = () => {
                 padding: 0,
                 paddingBottom: 6,
                 marginRight: 6,
+                color: colors.black
               }}
               placeholder='Nombra tu jardín'
             />
@@ -69,48 +70,51 @@ export const AddNewGardenScreen = () => {
             <Icon
               name='edit'
               size={28}
-              color={colors.gray}
+              color={colors.lightGray}
             />
           </View>
 
           <Input
-            name='Tipo de planta'
-            leftIcon='opacity'
-            iconColor={colors.blue}
             placeholder='Tipo de planta'
+            leftIcon='assignment'
+            iconColor={colors.green}
             nameOnTop
+            containerStyles={{marginBottom: 10,}}
           />
 
           <Input
-            name='Tipo de planta'
-            leftIcon='opacity'
+            placeholder='Temperatura minima'
+            leftIcon='device-thermostat'
             iconColor={colors.blue}
-            placeholder='Tipo de planta'
             nameOnTop
+            containerStyles={{marginBottom: 10,}}
+            props={{
+              keyboardType: 'numeric',
+            }}
           />
 
           <Input
-            name='Tipo de planta'
-            leftIcon='opacity'
-            iconColor={colors.blue}
-            placeholder='Tipo de planta'
+            placeholder='Temperatura máxima'
+            leftIcon='device-thermostat'
+            iconColor={colors.red}
             nameOnTop
+            containerStyles={{marginBottom: 10,}}
           />
 
           <Input
-            name='Tipo de planta'
+            placeholder='Niveles de agua'
             leftIcon='opacity'
             iconColor={colors.blue}
-            placeholder='Tipo de planta'
             nameOnTop
+            containerStyles={{marginBottom: 10,}}
           />
 
           <Input
-            name='Tipo de planta'
-            leftIcon='opacity'
-            iconColor={colors.blue}
-            placeholder='Tipo de planta'
+            placeholder='Niveles de luz solar'
+            leftIcon='wb-sunny'
+            iconColor={colors.yellow}
             nameOnTop
+            containerStyles={{marginBottom: 10,}}
           />
         </View>
       </View>

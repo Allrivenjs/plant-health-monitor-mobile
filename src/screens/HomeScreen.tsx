@@ -89,7 +89,10 @@ export const HomeScreen = () => {
         </View>
 
         <View style={styles.searchInputContainer}>
-          <Input leftIcon='search' placeholder='Search' />
+          <Input 
+            leftIcon='search' 
+            placeholder='Buscar planta' 
+          />
         </View>
 
         <FlatList

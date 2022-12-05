@@ -1,79 +1,114 @@
-import {FC, ReactElement} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {FC, useState} from 'react';
+import {
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputChangeEventData,
+  View,
+  ViewStyle,
+  TextInputProps,
+} from 'react-native';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {useTheme} from '../hooks';
 
 interface InputProps {
-  placeholder?: string;
   defaultValue?: string;
   name?: string;
+  placeholder?: string;
   leftIcon?: string;
   iconColor?: string;
   nameOnTop?: boolean;
+  containerStyles?: ViewStyle;
+  props?: TextInputProps;
 }
 
 export const Input: FC<InputProps> = ({
-  placeholder = '',
   defaultValue = '',
   name = '',
+  placeholder = '',
   leftIcon,
   iconColor,
   nameOnTop,
+  containerStyles,
+  props,
 }) => {
-  const {colors, textStyles, shadow} = useTheme();
+  const {colors, textStyles} = useTheme();
+
+  const [value, setValue] = useState(defaultValue);
+
+  const [isFocus, setIsFocus] = useState(false);
 
   iconColor = iconColor ? iconColor : colors.black;
+
+  const onFocus = () => setIsFocus(true);
+  const onBlur = () => setIsFocus(false);
+
+  const isActive = value.length > 0 || isFocus;
+
+  const onChangeValue = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    setValue(e.nativeEvent.text);
+  };
 
   const styles = StyleSheet.create({
     container: {
       flexDirection: 'row',
       width: '100%',
       flex: 1,
-      // height: 52,
       backgroundColor: 'white',
       borderRadius: 10,
       marginHorizontal: 20,
       paddingHorizontal: 20,
       paddingVertical: 10,
+      ...containerStyles,
     },
-    icon: {
-
-    },
+    icon: {},
     inputContainer: {
       flex: 1,
-      marginLeft: leftIcon ? 20 : 0, 
+      marginLeft: leftIcon ? 20 : 0,
       width: '100%',
     },
     name: {
       ...textStyles.body,
-      color: colors.lightGray
-      
+      color: colors.lightGray,
+      transform: [
+        {translateY: isActive ? 0 : 14},
+        {scale: isActive ? 1 : 1.05},
+      ],
     },
     input: {
       fontSize: textStyles.body.fontSize,
       color: colors.black,
+      fontFamily: 'Lato-Regular',
       padding: 0,
     },
   });
 
   return (
     <View style={styles.container}>
-      <View style={{ justifyContent: 'center', }}>
+      <View style={{justifyContent: 'center'}}>
         {leftIcon && (
-          <View >
+          <View>
             <Icon name={leftIcon} size={24} color={iconColor} />
           </View>
         )}
       </View>
 
-      <View style={ styles.inputContainer }>
-        {nameOnTop && <Text style={ styles.name }>{name}</Text>}
+      <View style={styles.inputContainer}>
+        {nameOnTop && <Text style={styles.name}>{placeholder}</Text>}
         <TextInput
+          nativeID={name}
           style={styles.input}
           placeholderTextColor={colors.lightGray}
-          placeholder={placeholder}
+          placeholder={nameOnTop ? isFocus ? placeholder : '' : placeholder}
           defaultValue={defaultValue}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          value={value}
+          onChange={onChangeValue}
+          {...props}
         />
       </View>
     </View>
