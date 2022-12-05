@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Input } from '../components';
+import { Button, Input } from '../components';
 
 import {PlantImage} from '../components/PlantImage';
 
@@ -79,7 +79,7 @@ export const AddNewGardenScreen = () => {
             leftIcon='assignment'
             iconColor={colors.green}
             nameOnTop
-            containerStyles={{marginBottom: 10,}}
+            containerStyles={{marginBottom: 16,}}
           />
 
           <Input
@@ -87,7 +87,7 @@ export const AddNewGardenScreen = () => {
             leftIcon='device-thermostat'
             iconColor={colors.blue}
             nameOnTop
-            containerStyles={{marginBottom: 10,}}
+            containerStyles={{marginBottom: 16,}}
             props={{
               keyboardType: 'numeric',
             }}
@@ -98,7 +98,10 @@ export const AddNewGardenScreen = () => {
             leftIcon='device-thermostat'
             iconColor={colors.red}
             nameOnTop
-            containerStyles={{marginBottom: 10,}}
+            containerStyles={{marginBottom: 16,}}
+            props={{
+              keyboardType: 'numeric',
+            }}
           />
 
           <Input
@@ -106,7 +109,7 @@ export const AddNewGardenScreen = () => {
             leftIcon='opacity'
             iconColor={colors.blue}
             nameOnTop
-            containerStyles={{marginBottom: 10,}}
+            containerStyles={{marginBottom: 16,}}
           />
 
           <Input
@@ -114,8 +117,15 @@ export const AddNewGardenScreen = () => {
             leftIcon='wb-sunny'
             iconColor={colors.yellow}
             nameOnTop
-            containerStyles={{marginBottom: 10,}}
+            containerStyles={{marginBottom: 16,}}
           />
+
+          <Button
+            size='large'
+            buttonStyles={{marginBottom: 20, marginTop: 4,}}
+          >
+            Siguiente
+          </Button>
         </View>
       </View>
     </ScrollView>
