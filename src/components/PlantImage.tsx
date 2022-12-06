@@ -47,5 +47,3 @@ export const PlantImage: FC<PlantImageProps> = ({ source }) => {
     </View>
   );
 };
-
-    // <View style={{flex: 8, justifyContent: 'center', alignItems: 'center'}}>

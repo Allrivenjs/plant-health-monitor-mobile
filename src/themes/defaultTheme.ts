@@ -25,6 +25,10 @@ export const defaultTheme: Theme = {
       fontSize: 30,
       fontFamily: 'Lato-Bold',
     },
+    heading2: {
+      fontSize: 26,
+      fontFamily: 'Lato-Bold',
+    },
     heading3: {
       fontSize: 23,
       fontFamily: 'Lato-Bold',

@@ -6,10 +6,11 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Typography } from '../../components';
 
 import { useTheme } from '../../hooks';
+import { HomeScreenNavigationType } from '../../screens/HomeScreen';
 
 
 export const CreateGardenCard = () => {
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<HomeScreenNavigationType>();
   const {colors } = useTheme();
 
   const styles = StyleSheet.create({

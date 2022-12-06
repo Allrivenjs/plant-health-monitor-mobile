@@ -6,9 +6,10 @@ interface ButtonProps {
   children: ReactNode;
   size: 'large' | 'medium' | 'small';
   buttonStyles?: ViewStyle;
+  onPress?: () => void;
 }
 
-export const Button: FC<ButtonProps> = ({children, size, buttonStyles}) => {
+export const Button: FC<ButtonProps> = ({children, size, buttonStyles, onPress}) => {
   const {colors} = useTheme();
 
   const sizeValue =
@@ -30,7 +31,7 @@ export const Button: FC<ButtonProps> = ({children, size, buttonStyles}) => {
   });
 
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>{children}</Text>
     </TouchableOpacity>
   );

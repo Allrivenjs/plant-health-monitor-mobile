@@ -1,3 +1,4 @@
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
 import {Input, Typography} from '../components';
@@ -5,8 +6,9 @@ import {Input, Typography} from '../components';
 import {CreateGardenCard, GardenCard, LastActions} from '../home/components';
 
 import {useTheme} from '../hooks';
-import { Action } from '../interfaces/action';
-import { Garden } from '../interfaces/garden';
+import {Action} from '../interfaces/action';
+import {Garden} from '../interfaces/garden';
+import {HomeStackParams} from '../navigator';
 
 const mockGardenCardData: Garden[] = [
   {
@@ -31,7 +33,6 @@ const mockGardenCardData: Garden[] = [
   },
 ];
 
-
 const mockActionData: Action[] = [
   {
     type: 'watering',
@@ -44,8 +45,13 @@ const mockActionData: Action[] = [
     garden: mockGardenCardData[1],
     description: 'El jardín tiene bajos niveles de agua',
     lastTime: 'La ultima ves que se relleno el agua fue hace 2 días',
-  }
+  },
 ];
+
+export type HomeScreenNavigationType = NativeStackNavigationProp<
+  HomeStackParams,
+  'HomeScreen'
+>;
 
 export const HomeScreen = () => {
   const {colors} = useTheme();
@@ -74,7 +80,7 @@ export const HomeScreen = () => {
   });
 
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{flex: 1}}>
       <StatusBar backgroundColor={colors.background} barStyle='dark-content' />
 
       <View style={styles.screenContainer}>
@@ -89,10 +95,7 @@ export const HomeScreen = () => {
         </View>
 
         <View style={styles.searchInputContainer}>
-          <Input 
-            leftIcon='search' 
-            placeholder='Buscar planta' 
-          />
+          <Input leftIcon='search' placeholder='Buscar planta' />
         </View>
 
         <FlatList
@@ -116,9 +119,7 @@ export const HomeScreen = () => {
         />
 
         <View style={{paddingHorizontal: 20, marginVertical: 20}}>
-          <LastActions
-            actions={mockActionData}
-          />
+          <LastActions actions={mockActionData} />
         </View>
       </View>
     </ScrollView>

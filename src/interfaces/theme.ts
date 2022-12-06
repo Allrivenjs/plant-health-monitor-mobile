@@ -9,9 +9,10 @@ export interface Theme {
 };
 
 export interface TextStyles {
-  body: TextStyle,
-  heading1: TextStyle,
-  heading3: TextStyle,
+  body: TextStyle;
+  heading1: TextStyle;
+  heading2: TextStyle;
+  heading3: TextStyle;
 };
 
 export interface Colors {

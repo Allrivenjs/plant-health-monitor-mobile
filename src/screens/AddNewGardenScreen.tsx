@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   ScrollView,
@@ -14,9 +15,16 @@ import { Button, Input } from '../components';
 import {PlantImage} from '../components/PlantImage';
 
 import {useTheme} from '../hooks';
+import { HomeScreenNavigationType } from './HomeScreen';
 
 export const AddNewGardenScreen = () => {
   const {colors, textStyles} = useTheme();
+
+  const {navigate} = useNavigation<HomeScreenNavigationType>();
+
+  const onClickNext = () => {
+    navigate('AddGardenWaterScheduleScreen')
+  };
 
   const style = StyleSheet.create({
     screenContainer: {
@@ -123,6 +131,7 @@ export const AddNewGardenScreen = () => {
           <Button
             size='large'
             buttonStyles={{marginBottom: 20, marginTop: 4,}}
+            onPress={onClickNext}
           >
             Siguiente
           </Button>

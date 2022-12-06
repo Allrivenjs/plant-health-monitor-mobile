@@ -77,12 +77,14 @@ export const Input: FC<InputProps> = ({
         {translateY: isActive ? 0 : 14},
         {scale: isActive ? 1 : 1.05},
       ],
+      paddingLeft: 10,
     },
     input: {
       fontSize: textStyles.body.fontSize,
       color: colors.black,
       fontFamily: 'Lato-Regular',
       padding: 0,
+      paddingLeft: 10,
     },
   });
 
