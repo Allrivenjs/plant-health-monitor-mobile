@@ -96,7 +96,7 @@ export const AddGardenWaterScheduleScreen = () => {
             defaultValue={1}
             placeholder='Regados por semana'
             leftIcon='opacity'
-            iconColor={colors.blue}
+            iconColor={colors.lightBlue}
             nameOnTop
             containerStyles={{marginVertical: 16}}
           />

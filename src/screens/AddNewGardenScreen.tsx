@@ -85,7 +85,7 @@ export const AddNewGardenScreen = () => {
           <Input
             placeholder='Tipo de planta'
             leftIcon='assignment'
-            iconColor={colors.green}
+            iconColor={colors.lightGreen}
             nameOnTop
             containerStyles={{marginBottom: 16,}}
           />
@@ -93,7 +93,7 @@ export const AddNewGardenScreen = () => {
           <Input
             placeholder='Temperatura minima'
             leftIcon='device-thermostat'
-            iconColor={colors.blue}
+            iconColor={colors.lightBlue}
             nameOnTop
             containerStyles={{marginBottom: 16,}}
             props={{
@@ -104,7 +104,7 @@ export const AddNewGardenScreen = () => {
           <Input
             placeholder='Temperatura máxima'
             leftIcon='device-thermostat'
-            iconColor={colors.red}
+            iconColor={colors.lightRed}
             nameOnTop
             containerStyles={{marginBottom: 16,}}
             props={{
@@ -115,7 +115,7 @@ export const AddNewGardenScreen = () => {
           <Input
             placeholder='Niveles de agua'
             leftIcon='opacity'
-            iconColor={colors.blue}
+            iconColor={colors.lightBlue}
             nameOnTop
             containerStyles={{marginBottom: 16,}}
           />
@@ -123,7 +123,7 @@ export const AddNewGardenScreen = () => {
           <Input
             placeholder='Niveles de luz solar'
             leftIcon='wb-sunny'
-            iconColor={colors.yellow}
+            iconColor={colors.lightYellow}
             nameOnTop
             containerStyles={{marginBottom: 16,}}
           />

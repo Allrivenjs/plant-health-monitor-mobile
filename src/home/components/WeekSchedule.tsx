@@ -57,7 +57,7 @@ export const WeekSchedule: FC<WeekScheduleProps> = ({weekSchedule, setWeekSchedu
           name={name}
           active={active}
           notActiveColor={colors.gray}
-          activeColor={colors.blue}
+          activeColor={colors.lightBlue}
           onPress={onPressDay}
         />
       ))}

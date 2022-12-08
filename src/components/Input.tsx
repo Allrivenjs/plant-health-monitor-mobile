@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, useEffect, useRef, useState} from 'react';
 import {
   NativeSyntheticEvent,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   View,
   ViewStyle,
   TextInputProps,
+  Animated,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -43,14 +44,31 @@ export const Input: FC<InputProps> = ({
 
   iconColor = iconColor ? iconColor : colors.black;
 
+  const isActive = value.length > 0 || isFocus;
+
+  const nameYPosition = useRef(new Animated.Value(14)).current;
+  const nameScale = useRef(new Animated.Value(2)).current;
+
   const onFocus = () => setIsFocus(true);
   const onBlur = () => setIsFocus(false);
-
-  const isActive = value.length > 0 || isFocus;
 
   const onChangeValue = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setValue(e.nativeEvent.text);
   };
+
+  useEffect(() => {
+    Animated.timing(nameYPosition, {
+      toValue: isActive ? 0 : 14,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(nameScale, {
+      toValue: isActive ? 1.02 : 1,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  }, [nameYPosition, isActive]);
 
   const styles = StyleSheet.create({
     container: {
@@ -74,9 +92,10 @@ export const Input: FC<InputProps> = ({
       ...textStyles.body,
       color: colors.lightGray,
       transform: [
-        {translateY: isActive ? 0 : 14},
-        {scale: isActive ? 1 : 1.05},
+        // {translateY: isActive ? 0 : 14},
+        // {scale: isActive ? 2 : 1},
       ],
+
       paddingLeft: 10,
     },
     input: {
@@ -99,12 +118,20 @@ export const Input: FC<InputProps> = ({
       </View>
 
       <View style={styles.inputContainer}>
-        {nameOnTop && <Text style={styles.name}>{placeholder}</Text>}
+        {nameOnTop && (
+          <Animated.Text
+            style={{
+              ...styles.name,
+              transform: [{translateY: nameYPosition}, {scale: nameScale}],
+            }}>
+            {placeholder}
+          </Animated.Text>
+        )}
         <TextInput
           nativeID={name}
           style={styles.input}
           placeholderTextColor={colors.lightGray}
-          placeholder={nameOnTop ? isFocus ? placeholder : '' : placeholder}
+          placeholder={nameOnTop ? (isFocus ? placeholder : '') : placeholder}
           defaultValue={defaultValue}
           onFocus={onFocus}
           onBlur={onBlur}

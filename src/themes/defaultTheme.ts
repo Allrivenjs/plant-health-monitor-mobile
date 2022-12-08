@@ -1,4 +1,4 @@
-import { Theme } from '../interfaces';
+import {Theme} from '../interfaces';
 
 export const defaultTheme: Theme = {
   currentTheme: 'default',
@@ -10,11 +10,14 @@ export const defaultTheme: Theme = {
     black: '#1A1D1C',
     gray: '#898989',
     lightGray: 'rgba(26, 29, 28, 0.36)',
-    green: '#D8E7B4',
-    blue: '#B4CFE7',
-    red: '#E7B7B4',
-    yellow: '#E6E7B4',
-    white: '#ffffff'
+    lightGreen: '#D8E7B4',
+    lightBlue: '#B4CFE7',
+    lightRed: '#E7B7B4',
+    lightYellow: '#E6E7B4',
+    blue: '#6691B9',
+    red: '#B9667A',
+    yellow: '#B99366',
+    white: '#ffffff',
   },
   textStyles: {
     body: {
@@ -35,7 +38,7 @@ export const defaultTheme: Theme = {
     },
   },
   shadow: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 1,
       height: 1,

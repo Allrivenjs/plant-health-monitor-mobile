@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 
 import {Image, StyleSheet, View} from 'react-native';
 
@@ -16,6 +16,7 @@ interface Props {
 
 export const ActionCard: FC<Props> = ({ action }) => {
   const {shadow, colors} = useTheme();
+
 
   const styles = StyleSheet.create({
     actionCardContainer: {
@@ -35,7 +36,7 @@ export const ActionCard: FC<Props> = ({ action }) => {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View
           style={{
-            backgroundColor: colors.green,
+            backgroundColor: colors.lightGreen,
             width: 55,
             height: 55,
             borderRadius: 100,
@@ -63,7 +64,7 @@ export const ActionCard: FC<Props> = ({ action }) => {
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View
           style={{
-            backgroundColor: colors.blue,
+            backgroundColor: colors.lightBlue,
             width: 55,
             height: 55,
             borderRadius: 100,
