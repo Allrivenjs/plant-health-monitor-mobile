@@ -5,7 +5,7 @@ interface DayProps {
   notActiveColor: string;
   activeColor: string;
   active?: boolean;
-  onPress: (dayPressedId: number) => void;
+  onPress?: (dayPressedId: number) => void;
   id: number;
   name: string;
 }
@@ -39,7 +39,7 @@ export const Day: FC<DayProps> = ({
 
   return (
     <View style={styles.container}>
-      <TouchableHighlight onPress={() => onPress(id)} underlayColor='#fff'>
+      <TouchableHighlight onPress={() => onPress && onPress(id)} underlayColor='#fff'>
         <View style={styles.day} />
       </TouchableHighlight>
       <Text style={styles.dayText}>{name}</Text>

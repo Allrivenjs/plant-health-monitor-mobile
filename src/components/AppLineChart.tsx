@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {Dimensions} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 
-interface DatasetLineChart {
+export interface DatasetLineChart {
   data: number[];
 }
 
@@ -11,14 +11,15 @@ interface AppLineChartProps {
   lightColor: string;
   labels: string[];
   datasets: DatasetLineChart[];
+  prefix: string;
 }
-    
 
 export const AppLineChart: FC<AppLineChartProps> = ({
   backgroundColor,
   lightColor,
   labels,
   datasets,
+  prefix,
 }) => {
   return (
     <LineChart
@@ -28,7 +29,7 @@ export const AppLineChart: FC<AppLineChartProps> = ({
       }}
       width={Dimensions.get('window').width - 60} // from react-native
       height={209}
-      yAxisSuffix='%'
+      yAxisSuffix={prefix}
       chartConfig={{
         backgroundColor: backgroundColor,
         backgroundGradientFrom: backgroundColor,

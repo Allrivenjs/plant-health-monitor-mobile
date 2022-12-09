@@ -1,32 +1,12 @@
 import {FC, useEffect, useRef, useState} from 'react';
 
-import {
-  Animated,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {Typography} from '../../components';
-import { AppLineChart } from '../../components/AppLineChart';
+import {AppLineChart, DatasetLineChart} from '../../components/AppLineChart';
 import {useTheme} from '../../hooks';
-
-const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
-const chatDatasets = [
-  {
-    data: [
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-      Math.floor(Math.random() * 100),
-    ],
-  },
-]
 
 interface InfoCardProps {
   content: string;
@@ -34,9 +14,21 @@ interface InfoCardProps {
   color: string;
   lightColor: string;
   icon: string;
+  labels: string[];
+  datasets: DatasetLineChart[];
+  prefix?: string;
 }
 
-export const InfoCard: FC<InfoCardProps> = ({content, name, color, icon, lightColor}) => {
+export const InfoCard: FC<InfoCardProps> = ({
+  content,
+  name,
+  color,
+  icon,
+  lightColor,
+  labels,
+  datasets,
+  prefix = '',
+}) => {
   const {colors, textStyles} = useTheme();
   const [isDropDown, setDropDown] = useState(false);
 
@@ -143,13 +135,14 @@ export const InfoCard: FC<InfoCardProps> = ({content, name, color, icon, lightCo
         </View>
       </View>
 
-      <View style={{ alignItems: 'center'}}>
+      <View style={{alignItems: 'center'}}>
         {isDropDown && (
           <AppLineChart
             lightColor={lightColor}
             backgroundColor={color}
-            labels={chartLabels}
-            datasets={chatDatasets}
+            labels={labels}
+            datasets={datasets}
+            prefix={prefix}
           />
         )}
       </View>
