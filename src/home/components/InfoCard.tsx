@@ -1,20 +1,42 @@
 import {FC, useEffect, useRef, useState} from 'react';
 
-import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {Typography} from '../../components';
+import { AppLineChart } from '../../components/AppLineChart';
 import {useTheme} from '../../hooks';
+
+const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
+const chatDatasets = [
+  {
+    data: [
+      Math.floor(Math.random() * 100),
+      Math.floor(Math.random() * 100),
+      Math.floor(Math.random() * 100),
+      Math.floor(Math.random() * 100),
+      Math.floor(Math.random() * 100),
+      Math.floor(Math.random() * 100),
+      Math.floor(Math.random() * 100),
+    ],
+  },
+]
 
 interface InfoCardProps {
   content: string;
   name: string;
   color: string;
+  lightColor: string;
   icon: string;
 }
 
-export const InfoCard: FC<InfoCardProps> = ({content, name, color, icon}) => {
+export const InfoCard: FC<InfoCardProps> = ({content, name, color, icon, lightColor}) => {
   const {colors, textStyles} = useTheme();
   const [isDropDown, setDropDown] = useState(false);
 
@@ -75,13 +97,12 @@ export const InfoCard: FC<InfoCardProps> = ({content, name, color, icon}) => {
       height: 38,
       justifyContent: 'center',
       alignItems: 'center',
-      transform: [{ rotateX: isDropDown ? '180deg' : '0deg', }]
+      transform: [{rotateX: isDropDown ? '180deg' : '0deg'}],
     },
   });
-// height: cardHeight
 
   return (
-    <Animated.View style={{ ...style.container, height: cardHeight }}>
+    <Animated.View style={{...style.container, height: cardHeight}}>
       <View style={style.header}>
         <View style={style.titleContainer}>
           <View style={style.iconContainer}>
@@ -122,7 +143,16 @@ export const InfoCard: FC<InfoCardProps> = ({content, name, color, icon}) => {
         </View>
       </View>
 
-      <View></View>
+      <View style={{ alignItems: 'center'}}>
+        {isDropDown && (
+          <AppLineChart
+            lightColor={lightColor}
+            backgroundColor={color}
+            labels={chartLabels}
+            datasets={chatDatasets}
+          />
+        )}
+      </View>
     </Animated.View>
   );
 };

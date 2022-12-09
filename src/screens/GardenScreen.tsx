@@ -74,6 +74,7 @@ export const GardenScreen = () => {
             icon='opacity'
             name='Humedad'
             color={colors.blue}
+            lightColor={colors.lightBlue}
           />
 
           <InfoCard 
@@ -81,6 +82,7 @@ export const GardenScreen = () => {
             icon='opacity'
             name='Temp'
             color={colors.red}
+            lightColor={colors.lightRed}
           />
 
           <InfoCard 
@@ -88,6 +90,7 @@ export const GardenScreen = () => {
             icon='opacity'
             name='Luz'
             color={colors.yellow}
+            lightColor={colors.lightYellow}
           />
 
         </View>
