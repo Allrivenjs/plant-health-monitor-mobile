@@ -1,35 +1,36 @@
+import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
+import {FlatList, ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-import {Input, Typography} from '../components';
+import {Input, Typography} from '../../components';
 
-import {CreateGardenCard, GardenCard, LastActions} from '../home/components';
+import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
 
-import {useTheme} from '../hooks';
-import {Action} from '../interfaces/action';
-import {Garden} from '../interfaces/garden';
-import {HomeStackParams} from '../navigator';
+import {useTheme} from '../../hooks';
+import {Action} from '../../interfaces/action';
+import {Garden} from '../../interfaces/garden';
+import {HomeStackParams} from '../../navigator';
 
 const mockGardenCardData: Garden[] = [
   {
     id: '1',
     name: 'Veraneras',
-    source: require('../../assets/images/plant1.png'),
+    source: require('../../../assets/images/plant1.png'),
   },
   {
     id: '2',
     name: 'Mataratones',
-    source: require('../../assets/images/plant1.png'),
+    source: require('../../../assets/images/plant1.png'),
   },
   {
     id: '3',
     name: 'Veraneras',
-    source: require('../../assets/images/plant1.png'),
+    source: require('../../../assets/images/plant1.png'),
   },
   {
     id: '4',
     name: 'Mataratones',
-    source: require('../../assets/images/plant1.png'),
+    source: require('../../../assets/images/plant1.png'),
   },
 ];
 
@@ -56,10 +57,12 @@ export type HomeScreenNavigationType = NativeStackNavigationProp<
 export const HomeScreen = () => {
   const {colors} = useTheme();
 
+  const { navigate } = useNavigation<HomeScreenNavigationType>();
+
   const styles = StyleSheet.create({
     screenContainer: {
       flex: 1,
-      backgroundColor: colors.background,
+      paddingBottom: 56,
     },
     headerContainer: {
       flexDirection: 'row',
@@ -119,6 +122,34 @@ export const HomeScreen = () => {
         />
 
         <View style={{paddingHorizontal: 20, marginVertical: 20}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 10,
+            }}>
+            <Typography
+              size='heading3'
+              style={{fontFamily: 'Lato-Regular', color: colors.gray}}>
+              Ultimas acciones
+            </Typography>
+
+            <TouchableOpacity
+              onPress={() => navigate('ActionScreen') }
+            >
+              <Typography
+                size='body'
+                style={{
+                  fontFamily: 'Lato-Regular',
+                  color: colors.primary,
+                  textDecorationLine: 'underline',
+                }}>
+                Mostrar más
+              </Typography>
+            </TouchableOpacity>
+          </View>
+
           <LastActions actions={mockActionData} />
         </View>
       </View>

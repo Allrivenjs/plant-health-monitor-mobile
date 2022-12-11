@@ -10,15 +10,15 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {Typography} from '../components';
+import {Typography} from '../../components';
 
-import {PlantImage} from '../components/PlantImage';
-import {WeekScheduleHistory} from '../components/WeekScheduleHistory';
-import {InfoCard} from '../home/components/InfoCard';
+import {PlantImage} from '../../components/PlantImage';
+import {WeekScheduleHistory} from '../../components/WeekScheduleHistory';
+import {InfoCard} from '../../home/components/InfoCard';
 
-import {useTheme} from '../hooks';
-import {IDayOfWeekWithWateringCuantity} from '../interfaces/schedule';
-import {HomeStackParams} from '../navigator';
+import {useTheme} from '../../hooks';
+import {IDayOfWeekWithWateringCuantity} from '../../interfaces/schedule';
+import {HomeStackParams} from '../../navigator';
 import {HomeScreenNavigationType} from './HomeScreen';
 
 const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
@@ -81,7 +81,7 @@ export type GardenScreenNavigationType = NativeStackNavigationProp<
 >;
 
 export const GardenScreen = () => {
-  const {colors, textStyles} = useTheme();
+  const {colors} = useTheme();
 
   const {navigate} = useNavigation<HomeScreenNavigationType>();
 
@@ -96,7 +96,7 @@ export const GardenScreen = () => {
   const style = StyleSheet.create({
     screenContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      paddingBottom: 56,
     },
     plantContainer: {
       height: 300,
@@ -119,7 +119,7 @@ export const GardenScreen = () => {
       <StatusBar backgroundColor={colors.white} barStyle='dark-content' />
       <View style={style.screenContainer}>
         <View style={style.plantContainer}>
-          <PlantImage source={require('../../assets/images/plant1.png')} />
+          <PlantImage source={require('../../../assets/images/plant1.png')} />
           <View
             style={{
               position: 'absolute',
@@ -179,7 +179,7 @@ export const GardenScreen = () => {
 
           <InfoCard
             content='22°C'
-            icon='opacity'
+            icon='device-thermostat'
             name='Temp'
             color={colors.red}
             lightColor={colors.lightRed}
@@ -202,7 +202,7 @@ export const GardenScreen = () => {
 
           <InfoCard
             content='22%'
-            icon='opacity'
+            icon='wb-sunny'
             name='Luz'
             color={colors.yellow}
             lightColor={colors.lightYellow}

@@ -27,7 +27,7 @@ export const ActionCard: FC<Props> = ({ action }) => {
       height: 80,
       borderRadius: 10,
       padding: 8,
-      ...shadow,
+      // ...shadow,
     },
   });
 

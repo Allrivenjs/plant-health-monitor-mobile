@@ -2,10 +2,12 @@ import React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {HomeScreen} from '../screens/HomeScreen';
-import {AddNewGardenScreen} from '../screens/AddNewGardenScreen';
-import { AddGardenWaterScheduleScreen } from '../screens/AddGardenWaterScheduleScreen';
-import { GardenScreen } from '../screens/GardenScreen';
+import {
+  HomeScreen,
+  AddNewGardenScreen,
+  AddGardenWaterScheduleScreen,
+  GardenScreen,
+} from '../screens/home';
 
 export type HomeStackParams = {
   HomeScreen: undefined;
@@ -22,11 +24,27 @@ export const HomeStackNavigator = () => {
       initialRouteName='HomeScreen'
       screenOptions={{
         headerShadowVisible: false,
+        headerShown: false,
       }}>
-      <Screen name='HomeScreen' component={HomeScreen} />
-      <Screen name='AddNewGardenScreen' component={AddNewGardenScreen} />
-      <Screen name='AddGardenWaterScheduleScreen' component={AddGardenWaterScheduleScreen} />
-      <Screen name='GardenScreen' component={GardenScreen} />
+      <Screen
+        name='HomeScreen'
+        component={HomeScreen}
+      />
+      <Screen
+        options={{headerShown: true, headerTitle: ''}}
+        name='AddNewGardenScreen'
+        component={AddNewGardenScreen}
+      />
+      <Screen
+        options={{headerShown: true, headerTitle: ''}}
+        name='AddGardenWaterScheduleScreen'
+        component={AddGardenWaterScheduleScreen}
+      />
+      <Screen
+        options={{headerShown: true, headerTitle: ''}}
+        name='GardenScreen'
+        component={GardenScreen}
+      />
     </Navigator>
   );
 };

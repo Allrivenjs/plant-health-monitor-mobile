@@ -1,21 +1,21 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Button, Input } from '../components';
+import { Button, Input } from '../../components';
 
-import {PlantImage} from '../components/PlantImage';
+import {PlantImage} from '../../components/PlantImage';
 
-import {useTheme} from '../hooks';
-import { HomeScreenNavigationType } from './HomeScreen';
+import {useTheme} from '../../hooks';
+import { HomeScreenNavigationType } from './';
 
 export const AddNewGardenScreen = () => {
   const {colors, textStyles} = useTheme();
@@ -29,7 +29,7 @@ export const AddNewGardenScreen = () => {
   const style = StyleSheet.create({
     screenContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      paddingBottom: 56,
     },
     plantContainer: {
       height: 260,
@@ -51,7 +51,7 @@ export const AddNewGardenScreen = () => {
       <StatusBar backgroundColor={colors.white} barStyle='dark-content' />
       <View style={style.screenContainer}>
         <View style={style.plantContainer}>
-          <PlantImage source={require('../../assets/images/plant1.png')} />
+          <PlantImage source={require('../../../assets/images/plant1.png')} />
         </View>
 
         <View style={style.formContainer}>

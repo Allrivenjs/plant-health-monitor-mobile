@@ -16,30 +16,6 @@ export const LastActions: FC<Props> = ({ actions }) => {
   const {colors} = useTheme();
   return (
     <View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 10,
-        }}>
-        <Typography
-          size='heading3'
-          style={{fontFamily: 'Lato-Regular', color: colors.gray}}>
-          Ultimas acciones
-        </Typography>
-
-        <Typography
-          size='body'
-          style={{
-            fontFamily: 'Lato-Regular',
-            color: colors.primary,
-            textDecorationLine: 'underline',
-          }}>
-          Mostrar más
-        </Typography>
-      </View>
-
       {
         actions.map((action) => (
           <ActionCard
@@ -48,7 +24,6 @@ export const LastActions: FC<Props> = ({ actions }) => {
           />
         ))
       }
-
     </View>
   );
 };

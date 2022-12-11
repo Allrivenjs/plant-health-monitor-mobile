@@ -1,12 +1,12 @@
-import {useEffect, useMemo, useState} from 'react';
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {useState} from 'react';
+import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
-import {Button, Input, Typography} from '../components';
+import {Button, Input, Typography} from '../../components';
 
-import {WeekSchedule} from '../home/components/WeekSchedule';
+import {WeekSchedule} from '../../home/components/WeekSchedule';
 
-import {useTheme} from '../hooks';
-import {IDayOfWeek} from '../interfaces/schedule';
+import {useTheme} from '../../hooks';
+import {IDayOfWeek} from '../../interfaces/schedule';
 
 const defaultWeekScheduleValue: IDayOfWeek[] = [
   {
@@ -63,7 +63,7 @@ export const AddGardenWaterScheduleScreen = () => {
   const style = StyleSheet.create({
     screenContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      paddingBottom: 56,
     },
     plantContainer: {
       height: 260,
