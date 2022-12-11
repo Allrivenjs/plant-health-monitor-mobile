@@ -74,6 +74,7 @@ export const Input: FC<InputProps> = ({
     container: {
       flexDirection: 'row',
       width: '100%',
+      justifyContent: 'center', 
       flex: 1,
       backgroundColor: 'white',
       borderRadius: 10,
@@ -124,7 +125,7 @@ export const Input: FC<InputProps> = ({
               ...styles.name,
               transform: [{translateY: nameYPosition}, {scale: nameScale}],
             }}>
-            {placeholder}
+            {name}
           </Animated.Text>
         )}
         <TextInput

@@ -8,7 +8,7 @@ export type ActionStackParams = {
   ActionScreen: undefined;
 };
 
-const {Screen, Navigator} = createNativeStackNavigator<HomeStackParams>();
+const {Screen, Navigator} = createNativeStackNavigator<ActionStackParams>();
 
 export const ActionStackNavigator = () => {
   return (
