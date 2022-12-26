@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { Controller } from 'react-hook-form';
 import {
   ScrollView,
   StatusBar,
@@ -11,6 +12,7 @@ import {
 import {Button, Input, Typography} from '../../components';
 
 import {useTheme} from '../../hooks';
+import {useLogin} from '../../hooks/auth/useLogin';
 
 import {AuthStackParams} from '../../navigator';
 
@@ -23,6 +25,8 @@ export const LoginScreen = () => {
   const {colors} = useTheme();
 
   const {navigate} = useNavigation<LoginScreenNavigationType>();
+
+  const {control, onSubmit} = useLogin();
 
   const styles = StyleSheet.create({
     screenContainer: {
@@ -89,24 +93,44 @@ export const LoginScreen = () => {
           alignItems: 'center',
           flex: 1,
         }}>
-        <Input
-          name='Usuario'
-          nameOnTop
-          leftIcon='person'
-          iconColor={colors.primary}
-          placeholder='Pepito'
-          containerStyles={{marginBottom: 20, marginTop: 32}}
+        <Controller
+          name='email'
+          control={control}
+          render={({field: {value, onChange}}) => (
+            <Input
+              name='Email'
+              value={value}
+              onChange={onChange}
+              nameOnTop
+              leftIcon='person'
+              iconColor={colors.primary}
+              placeholder='Pepito'
+              containerStyles={{marginBottom: 20, marginTop: 32}}
+            />
+          )}
         />
 
-        <Input
-          name='Contraseña'
-          nameOnTop
-          leftIcon='lock'
-          iconColor={colors.primary}
-          placeholder='*******'
-          containerStyles={{marginBottom: 20}}
+        <Controller
+          name='password'
+          control={control}
+          render={({field: {value, onChange}}) => (
+            <Input
+              name='Contraseña'
+              value={value}
+              onChange={onChange}
+              nameOnTop
+              leftIcon='lock'
+              iconColor={colors.primary}
+              placeholder='*********'
+              containerStyles={{marginBottom: 20}}
+              props={{secureTextEntry: true}}
+            />
+          )}
         />
-        <Button size='large'>Iniciar sesión</Button>
+
+        <Button size='large' onPress={onSubmit}>
+          Iniciar sesión
+        </Button>
       </View>
 
       {/* Move this view inside the ScrollView container */}

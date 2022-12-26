@@ -1,4 +1,4 @@
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -10,6 +10,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ActionStackNavigator} from './navigator/ActionStackNavigatior';
 
 import {DefaultTheme} from '@react-navigation/native';
+import { useEffect } from 'react';
+import { useAuth } from './hooks/useAuth';
+import { Spinner } from './components/Spinner';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,13 +25,17 @@ const stackTheme = {
 };
 
 export const App = () => {
-  const userIsSigned = false;
+  const {status, verifyUserAuthentication} = useAuth();
+
+  useEffect(() => {
+    verifyUserAuthentication();
+  }, []);
 
   return (
     <NavigationContainer theme={stackTheme}>
       <ThemeProvider theme={defaultTheme}>
         <SafeAreaView style={{flex: 1}}>
-          {userIsSigned ? (
+          {status === 'logged' ? (
             <Tab.Navigator
               screenOptions={({route}) => ({
                 tabBarIcon: ({focused, color}) => {
@@ -53,12 +60,17 @@ export const App = () => {
                   borderRadius: 15,
                   elevation: 1,
                 },
-              })}>
+              })}
+            >
               <Tab.Screen name='Home' component={HomeStackNavigator} />
+
               <Tab.Screen name='Action' component={ActionStackNavigator} />
+
             </Tab.Navigator>
-          ) : (
+          ) : status === 'not-logged' ? (
             <AuthStackNavigator />
+          ) : (
+            <Spinner />
           )}
         </SafeAreaView>
       </ThemeProvider>

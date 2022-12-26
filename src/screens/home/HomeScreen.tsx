@@ -3,6 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {FlatList, ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import {Input, Typography} from '../../components';
+import { AppMenu } from '../../components/AppMenu';
 
 import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
 
@@ -82,9 +83,12 @@ export const HomeScreen = () => {
     },
   });
 
+
   return (
     <ScrollView style={{flex: 1}}>
       <StatusBar backgroundColor={colors.background} barStyle='dark-content' />
+
+      <AppMenu />
 
       <View style={styles.screenContainer}>
         <View style={styles.headerContainer}>

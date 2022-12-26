@@ -1,10 +1,8 @@
 import {FC, useEffect, useRef, useState} from 'react';
 import {
-  NativeSyntheticEvent,
   StyleSheet,
   Text,
   TextInput,
-  TextInputChangeEventData,
   View,
   ViewStyle,
   TextInputProps,
@@ -18,6 +16,8 @@ import {useTheme} from '../hooks';
 interface InputProps {
   defaultValue?: string;
   name?: string;
+  value?: string;
+  onChange?: (value: string) => void;
   placeholder?: string;
   leftIcon?: string;
   iconColor?: string;
@@ -28,8 +28,10 @@ interface InputProps {
 
 export const Input: FC<InputProps> = ({
   defaultValue = '',
-  name = '',
   placeholder = '',
+  name = placeholder,
+  value = '',
+  onChange = () => {},
   leftIcon,
   iconColor,
   nameOnTop,
@@ -37,9 +39,6 @@ export const Input: FC<InputProps> = ({
   props,
 }) => {
   const {colors, textStyles} = useTheme();
-
-  const [value, setValue] = useState(defaultValue);
-
   const [isFocus, setIsFocus] = useState(false);
 
   iconColor = iconColor ? iconColor : colors.black;
@@ -51,10 +50,6 @@ export const Input: FC<InputProps> = ({
 
   const onFocus = () => setIsFocus(true);
   const onBlur = () => setIsFocus(false);
-
-  const onChangeValue = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-    setValue(e.nativeEvent.text);
-  };
 
   useEffect(() => {
     Animated.timing(nameYPosition, {
@@ -137,7 +132,7 @@ export const Input: FC<InputProps> = ({
           onFocus={onFocus}
           onBlur={onBlur}
           value={value}
-          onChange={onChangeValue}
+          onChange={(e) => onChange(e.nativeEvent.text)}
           {...props}
         />
       </View>

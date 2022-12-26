@@ -1,10 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import { Controller } from 'react-hook-form';
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import {Button, Input, Typography} from '../../components';
 
 import {useTheme} from '../../hooks';
+import {useRegister} from '../../hooks/auth/useRegister';
 
 import {AuthStackParams} from '../../navigator';
 
@@ -17,6 +25,8 @@ export const RegisterScreen = () => {
   const {colors} = useTheme();
 
   const {navigate} = useNavigation<RegisterScreenNavigationType>();
+
+  const {control, onSubmit} = useRegister();
 
   const styles = StyleSheet.create({
     screenContainer: {
@@ -72,34 +82,62 @@ export const RegisterScreen = () => {
           alignItems: 'center',
           flex: 1,
         }}>
-        <Input
-          name='Nombre completo'
-          nameOnTop
-          leftIcon='person'
-          iconColor={colors.primary}
-          placeholder='Pepito'
-          containerStyles={{marginBottom: 20, marginTop: 32}}
+
+        <Controller
+          name='name'
+          control={control}
+          render={({field: {value, onChange}}) => (
+            <Input
+              name='Nombre completo'
+              value={value}
+              onChange={onChange}
+              nameOnTop
+              leftIcon='person'
+              iconColor={colors.primary}
+              placeholder='Pepito'
+              containerStyles={{marginBottom: 20, marginTop: 32}}
+            />
+          )}
         />
 
-        <Input
-          name='Usuario'
-          nameOnTop
-          leftIcon='person'
-          iconColor={colors.primary}
-          placeholder='Pepito'
-          containerStyles={{marginBottom: 20}}
+        <Controller
+          name='email'
+          control={control}
+          render={({field: {value, onChange}}) => (
+            <Input
+              name='Email'
+              value={value}
+              onChange={onChange}
+              nameOnTop
+              leftIcon='person'
+              iconColor={colors.primary}
+              placeholder='Pepito'
+              containerStyles={{marginBottom: 20}}
+            />
+          )}
         />
 
-        <Input
-          name='Contraseña'
-          nameOnTop
-          leftIcon='lock'
-          iconColor={colors.primary}
-          placeholder='*******'
-          containerStyles={{marginBottom: 20}}
+        <Controller
+          name='password'
+          control={control}
+          render={({field: {value, onChange}}) => (
+            <Input
+              name='Contraseña'
+              value={value}
+              onChange={onChange}
+              nameOnTop
+              leftIcon='lock'
+              iconColor={colors.primary}
+              placeholder='*********'
+              containerStyles={{marginBottom: 20}}
+              props={{secureTextEntry: true}}
+            />
+          )}
         />
-        <Button
+
+        <Button 
           size='large'
+          onPress={onSubmit}
         >
           Registrarse
         </Button>
@@ -119,16 +157,15 @@ export const RegisterScreen = () => {
             }}>
             ¿Ya tienes cuenta de P.H.M?
           </Typography>
-          <TouchableOpacity
-            onPress={() => navigate('LoginScreen')}
-          >
+          <TouchableOpacity onPress={() => navigate('LoginScreen')}>
             <Typography
               size='body'
               style={{
                 color: colors.primary,
                 textAlign: 'center',
               }}>
-              {" "}Inicia sesión
+              {' '}
+              Inicia sesión
             </Typography>
           </TouchableOpacity>
         </View>

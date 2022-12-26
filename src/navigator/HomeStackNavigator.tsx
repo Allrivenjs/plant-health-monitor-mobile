@@ -9,6 +9,11 @@ import {
   GardenScreen,
 } from '../screens/home';
 
+import {useTheme} from '../hooks';
+import {Text} from 'react-native-svg';
+import { Alert, Button } from 'react-native';
+import { AppMenu } from '../components/AppMenu';
+
 export type HomeStackParams = {
   HomeScreen: undefined;
   AddNewGardenScreen: undefined;
@@ -19,6 +24,8 @@ export type HomeStackParams = {
 const {Screen, Navigator} = createNativeStackNavigator<HomeStackParams>();
 
 export const HomeStackNavigator = () => {
+  const {colors, textStyles} = useTheme();
+
   return (
     <Navigator
       initialRouteName='HomeScreen'
@@ -27,6 +34,7 @@ export const HomeStackNavigator = () => {
         headerShown: false,
       }}>
       <Screen
+        options={{headerShown: false, headerTitle: ''}}
         name='HomeScreen'
         component={HomeScreen}
       />
