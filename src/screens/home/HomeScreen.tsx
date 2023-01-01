@@ -16,22 +16,22 @@ const mockGardenCardData: Garden[] = [
   {
     id: '1',
     name: 'Veraneras',
-    source: require('../../../assets/images/plant1.png'),
+    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
   {
     id: '2',
     name: 'Mataratones',
-    source: require('../../../assets/images/plant1.png'),
+    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
   {
     id: '3',
     name: 'Veraneras',
-    source: require('../../../assets/images/plant1.png'),
+    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
   {
     id: '4',
     name: 'Mataratones',
-    source: require('../../../assets/images/plant1.png'),
+    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
 ];
 
@@ -114,7 +114,7 @@ export const HomeScreen = () => {
           }}
           data={mockGardenCardData}
           renderItem={({item}) => (
-            <GardenCard name={item.name} source={item.source} />
+            <GardenCard name={item.name} source={item.image} />
           )}
           keyExtractor={item => item.id}
           ListFooterComponent={

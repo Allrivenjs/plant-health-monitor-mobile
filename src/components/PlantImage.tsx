@@ -3,7 +3,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { useTheme } from '../hooks';
 
 interface PlantImageProps {
-  source: any;
+  source: string;
 };
 
 export const PlantImage: FC<PlantImageProps> = ({ source }) => {
@@ -38,7 +38,9 @@ export const PlantImage: FC<PlantImageProps> = ({ source }) => {
       <View style={styles.shadowEllipse} />
       <View style={styles.decorationCircle} />
       <Image
-        source={source}
+        source={{
+          uri: source,
+        }}
         style={{
           height: 210,
           width: 136,
