@@ -1,13 +1,17 @@
 import { FC } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
+import { EditScheduleForm } from '../hooks/useEditSchedule';
+
 interface DayProps {
   notActiveColor: string;
   activeColor: string;
   active?: boolean;
-  onPress?: (dayPressedId: number) => void;
+  onPress?: (day: keyof EditScheduleForm) => void;
   id: number;
   name: string;
+  keyName: keyof EditScheduleForm;
+  abbreviation: string;
 }
 
 export const Day: FC<DayProps> = ({
@@ -17,6 +21,8 @@ export const Day: FC<DayProps> = ({
   onPress,
   id,
   name,
+  keyName,
+  abbreviation,
 }) => {
   const styles = StyleSheet.create({
     container: {
@@ -39,10 +45,10 @@ export const Day: FC<DayProps> = ({
 
   return (
     <View style={styles.container}>
-      <TouchableHighlight onPress={() => onPress && onPress(id)} underlayColor='#fff'>
+      <TouchableHighlight onPress={() => onPress && onPress(keyName)} underlayColor='#fff'>
         <View style={styles.day} />
       </TouchableHighlight>
-      <Text style={styles.dayText}>{name}</Text>
+      <Text style={styles.dayText}>{abbreviation}</Text>
     </View>
   );
 };

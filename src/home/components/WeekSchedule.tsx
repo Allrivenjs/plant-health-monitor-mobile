@@ -1,32 +1,25 @@
-import {Dispatch, FC, SetStateAction, startTransition, useState} from 'react';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {FC} from 'react';
+
+import {StyleSheet, View} from 'react-native';
+
+import { weekdays } from '../../constants';
+
 import {useTheme} from '../../hooks';
-import {IDayOfWeek} from '../../interfaces/schedule';
+
+import { EditScheduleForm } from '../hooks/useEditSchedule';
+
 import { Day } from './Day';
 
-
 interface WeekScheduleProps {
-  weekSchedule: IDayOfWeek[];
-  setWeekSchedule: Dispatch<SetStateAction<IDayOfWeek[]>>;
+  weekSchedule: EditScheduleForm;
+  toggleScheduleDay: (day: keyof EditScheduleForm) => void;
 };
 
-export const WeekSchedule: FC<WeekScheduleProps> = ({weekSchedule, setWeekSchedule}) => {
+export const WeekSchedule: FC<WeekScheduleProps> = ({weekSchedule, toggleScheduleDay}) => {
   const {colors} = useTheme();
 
-
-  const onPressDay = (dayPressedId: number) => {
-    setWeekSchedule(prevState =>
-      prevState.map(day => {
-        if (day.id === dayPressedId) {
-          return {
-            ...day,
-            active: !day.active,
-          };
-        } else {
-          return day;
-        }
-      }),
-    );
+  const onPressDay = (day: keyof EditScheduleForm) => {
+    toggleScheduleDay(day);
   };
 
   const styles = StyleSheet.create({
@@ -50,12 +43,15 @@ export const WeekSchedule: FC<WeekScheduleProps> = ({weekSchedule, setWeekSchedu
           }}
         />
       </View>
-      {weekSchedule.map(({id, name, active}) => (
+
+      {weekdays.map(({dayNumber, keyName, name, abbreviation}) => (
         <Day
-          key={id}
-          id={id}
+          key={dayNumber}
+          id={dayNumber}
           name={name}
-          active={active}
+          abbreviation={abbreviation}
+          active={weekSchedule[keyName ].active}
+          keyName={keyName}
           notActiveColor={colors.gray}
           activeColor={colors.lightBlue}
           onPress={onPressDay}

@@ -1,64 +1,23 @@
-import {useState} from 'react';
 import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
 import {Button, Input, Typography} from '../../components';
+import {weekdays} from '../../constants';
 
 import {WeekSchedule} from '../../home/components/WeekSchedule';
+import {useEditSchedule} from '../../home/hooks/useEditSchedule';
 
 import {useTheme} from '../../hooks';
-import {IDayOfWeek} from '../../interfaces/schedule';
-
-const defaultWeekScheduleValue: IDayOfWeek[] = [
-  {
-    id: 1,
-    name: 'LU',
-    day: 'Lunes',
-    active: false,
-  },
-  {
-    id: 2,
-    name: 'MA',
-    day: 'Martes',
-    active: true,
-  },
-  {
-    id: 3,
-    name: 'MI',
-    day: 'Miercoles',
-    active: false,
-  },
-  {
-    id: 4,
-    name: 'JU',
-    day: 'Jueves',
-    active: false,
-  },
-  {
-    id: 5,
-    name: 'VI',
-    day: 'Viernes',
-    active: false,
-  },
-  {
-    id: 6,
-    name: 'SA',
-    day: 'Sabado',
-    active: false,
-  },
-  {
-    id: 7,
-    name: 'DO',
-    day: 'Domingo',
-    active: false,
-  },
-];
 
 export const AddGardenWaterScheduleScreen = () => {
   const {colors} = useTheme();
 
-  const [weekSchedule, setWeekSchedule] = useState<IDayOfWeek[]>(
-    defaultWeekScheduleValue,
-  );
+  const {
+    loading,
+    editScheduleFormState,
+    toggleADay,
+    changeDayCuantity,
+    onSubmit,
+  } = useEditSchedule(1);
 
   const style = StyleSheet.create({
     screenContainer: {
@@ -86,27 +45,38 @@ export const AddGardenWaterScheduleScreen = () => {
       <View style={style.screenContainer}>
         <View style={style.plantContainer}>
           <WeekSchedule
-            weekSchedule={weekSchedule}
-            setWeekSchedule={setWeekSchedule}
+            weekSchedule={editScheduleFormState}
+            toggleScheduleDay={toggleADay}
           />
         </View>
 
         <View style={style.formContainer}>
-          <Input
-            defaultValue={1}
-            placeholder='Regados por semana'
-            leftIcon='opacity'
-            iconColor={colors.lightBlue}
-            nameOnTop
-            containerStyles={{marginVertical: 16}}
-          />
-
           <Typography
-            style={{alignSelf: 'flex-start', marginBottom: 18, marginTop: 8}}
+            style={{alignSelf: 'flex-start', marginBottom: 32, marginTop: 18}}
             size='heading2'>
             Días de regado
           </Typography>
 
+          {weekdays.map(
+            ({keyName, name}) =>
+              editScheduleFormState[keyName].active && (
+                <Input
+                  name={`${name} cantidad`}
+                  value={String(editScheduleFormState[keyName].cuantity)}
+                  onChange={e => changeDayCuantity(keyName, Number(e))}
+                  nameOnTop
+                  leftIcon='opacity'
+                  iconColor={colors.lightBlue}
+                  placeholder='2'
+                  containerStyles={{marginBottom: 20}}
+                  props={{
+                    keyboardType: 'numeric',
+                  }}
+                />
+              ),
+          )}
+
+          {/*
           {weekSchedule.map(
             ({id, day, active}) =>
               active && (
@@ -119,6 +89,7 @@ export const AddGardenWaterScheduleScreen = () => {
                 />
               ),
           )}
+          */}
 
           <Button size='large' buttonStyles={{marginBottom: 20, marginTop: 4}}>
             Hecho

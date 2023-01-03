@@ -119,7 +119,7 @@ export const GardenScreen = () => {
       <StatusBar backgroundColor={colors.white} barStyle='dark-content' />
       <View style={style.screenContainer}>
         <View style={style.plantContainer}>
-          <PlantImage source={require('../../../assets/images/plant1.png')} />
+          <PlantImage source={'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png'} />
           <View
             style={{
               position: 'absolute',
