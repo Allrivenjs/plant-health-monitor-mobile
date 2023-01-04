@@ -6,6 +6,7 @@ import {Input, Typography} from '../../components';
 import { AppMenu } from '../../components/AppMenu';
 
 import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
+import { useHomeScreen } from '../../home/hooks/useHomeScreen';
 
 import {useTheme} from '../../hooks';
 import {Action} from '../../interfaces/action';
@@ -60,6 +61,8 @@ export const HomeScreen = () => {
 
   const { navigate } = useNavigation<HomeScreenNavigationType>();
 
+  const { gardens } = useHomeScreen();
+
   const styles = StyleSheet.create({
     screenContainer: {
       flex: 1,
@@ -112,11 +115,11 @@ export const HomeScreen = () => {
             flexDirection: 'row',
             flexGrow: 0,
           }}
-          data={mockGardenCardData}
+          data={gardens}
           renderItem={({item}) => (
             <GardenCard name={item.name} source={item.image} />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => String(item.id)}
           ListFooterComponent={
             <View style={{flexDirection: 'row'}}>
               <CreateGardenCard />

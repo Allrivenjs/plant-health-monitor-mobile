@@ -90,7 +90,7 @@ export const GardenScreen = () => {
   };
 
   const onClickScheduleSettings = () => {
-    navigate('AddGardenWaterScheduleScreen');
+    navigate('AddGardenWaterScheduleScreen', {gardenId: 11});
   };
 
   const style = StyleSheet.create({

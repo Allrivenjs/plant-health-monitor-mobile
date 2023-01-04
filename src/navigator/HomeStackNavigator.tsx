@@ -10,14 +10,11 @@ import {
 } from '../screens/home';
 
 import {useTheme} from '../hooks';
-import {Text} from 'react-native-svg';
-import { Alert, Button } from 'react-native';
-import { AppMenu } from '../components/AppMenu';
 
 export type HomeStackParams = {
   HomeScreen: undefined;
   AddNewGardenScreen: undefined;
-  AddGardenWaterScheduleScreen: undefined;
+  AddGardenWaterScheduleScreen: { gardenId: number };
   GardenScreen: undefined;
 };
 

@@ -1,3 +1,5 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {FC} from 'react';
 import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
 import {Button, Input, Typography} from '../../components';
@@ -7,8 +9,15 @@ import {WeekSchedule} from '../../home/components/WeekSchedule';
 import {useEditSchedule} from '../../home/hooks/useEditSchedule';
 
 import {useTheme} from '../../hooks';
+import {HomeStackParams} from '../../navigator';
 
-export const AddGardenWaterScheduleScreen = () => {
+interface Props
+  extends NativeStackScreenProps<
+    HomeStackParams,
+    'AddGardenWaterScheduleScreen'
+  > {}
+
+export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
   const {colors} = useTheme();
 
   const {
@@ -17,7 +26,7 @@ export const AddGardenWaterScheduleScreen = () => {
     toggleADay,
     changeDayCuantity,
     onSubmit,
-  } = useEditSchedule(1);
+  } = useEditSchedule(route.params.gardenId);
 
   const style = StyleSheet.create({
     screenContainer: {
@@ -58,9 +67,10 @@ export const AddGardenWaterScheduleScreen = () => {
           </Typography>
 
           {weekdays.map(
-            ({keyName, name}) =>
+            ({keyName, name}, index) =>
               editScheduleFormState[keyName].active && (
                 <Input
+                  key={weekdays[index].dayNumber}
                   name={`${name} cantidad`}
                   value={String(editScheduleFormState[keyName].cuantity)}
                   onChange={e => changeDayCuantity(keyName, Number(e))}
@@ -75,21 +85,6 @@ export const AddGardenWaterScheduleScreen = () => {
                 />
               ),
           )}
-
-          {/*
-          {weekSchedule.map(
-            ({id, day, active}) =>
-              active && (
-                <Input
-                  key={id}
-                  defaultValue={day}
-                  placeholder='Día de regado'
-                  nameOnTop
-                  containerStyles={{marginBottom: 16}}
-                />
-              ),
-          )}
-          */}
 
           <Button size='large' buttonStyles={{marginBottom: 20, marginTop: 4}}>
             Hecho

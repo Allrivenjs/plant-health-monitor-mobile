@@ -59,11 +59,8 @@ export const useEditSchedule = (gardenId: number) => {
   const {navigate} = useNavigation<HomeScreenNavigationType>();
 
   const [test, setTest] = useState<any>();
-  console.log('hook called');
 
   const toggleADay = (day: keyof EditScheduleForm) => {
-    console.log('toggle called');
-
     setEditScheduleFormState(prevState => ({
       ...prevState,
       [day]: {
