@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {Typography} from '../../components';
 
 import {useTheme} from '../../hooks';
-import { Action } from '../../interfaces/action';
+import { Action, ActionOld } from '../../interfaces/action';
 
 import {ActionCard} from './';
 
@@ -19,7 +19,7 @@ export const LastActions: FC<Props> = ({ actions }) => {
       {
         actions.map((action) => (
           <ActionCard
-            key={action.garden.id}
+            key={action.id}
             action={action}
           />
         ))

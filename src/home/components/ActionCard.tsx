@@ -43,8 +43,12 @@ export const ActionCard: FC<Props> = ({ action }) => {
           }}
         />
         <Image
-          source={require('../../../assets/images/plant1.png')}
-          style={{transform: [{scale: 0.07}], position: 'absolute'}}
+          source={{
+            uri: action.garden.image,
+            width: 700,
+            height: 700,
+          }}
+          style={{transform: [{scale: 0.07}], position: 'absolute', borderRadius: 1000}}
         />
       </View>
       <View
@@ -55,10 +59,10 @@ export const ActionCard: FC<Props> = ({ action }) => {
         }}>
         <Typography style={{fontFamily: 'Lato-Bold'}}>{action.garden.name}</Typography>
         <Typography style={{fontSize: 14}}>
-          {action.description}{' '}
+          {action.actionType.description}{' '}
         </Typography>
         <Typography style={{fontSize: 12, color: colors.gray}}>
-          {action.lastTime}
+          {`Creada el ${new Date(action.created_at).toDateString()}`}
         </Typography>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

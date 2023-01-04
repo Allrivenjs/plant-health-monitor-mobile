@@ -6,7 +6,7 @@ import {Input, Typography} from '../../components';
 import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
 
 import {useTheme} from '../../hooks';
-import {Action} from '../../interfaces/action';
+import {ActionOld} from '../../interfaces/action';
 import {Garden} from '../../interfaces/garden';
 
 import { ActionStackParams } from '../../navigator';
@@ -34,7 +34,7 @@ const mockGardenCardData: Garden[] = [
   },
 ];
 
-const mockActionData: Action[] = [
+const mockActionData: ActionOld[] = [
   {
     type: 'watering',
     garden: mockGardenCardData[0],

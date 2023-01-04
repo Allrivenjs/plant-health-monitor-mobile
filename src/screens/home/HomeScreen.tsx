@@ -9,7 +9,7 @@ import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
 import { useHomeScreen } from '../../home/hooks/useHomeScreen';
 
 import {useTheme} from '../../hooks';
-import {Action} from '../../interfaces/action';
+import {ActionOld} from '../../interfaces/action';
 import {Garden} from '../../interfaces/garden';
 import {HomeStackParams} from '../../navigator';
 
@@ -36,7 +36,7 @@ const mockGardenCardData: Garden[] = [
   },
 ];
 
-const mockActionData: Action[] = [
+const mockActionData: ActionOld[] = [
   {
     type: 'watering',
     garden: mockGardenCardData[0],
@@ -61,7 +61,7 @@ export const HomeScreen = () => {
 
   const { navigate } = useNavigation<HomeScreenNavigationType>();
 
-  const { gardens } = useHomeScreen();
+  const { gardens, actions } = useHomeScreen();
 
   const styles = StyleSheet.create({
     screenContainer: {
@@ -157,7 +157,7 @@ export const HomeScreen = () => {
             </TouchableOpacity>
           </View>
 
-          <LastActions actions={mockActionData} />
+          <LastActions actions={actions} />
         </View>
       </View>
     </ScrollView>
