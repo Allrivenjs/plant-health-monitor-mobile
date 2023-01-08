@@ -1,7 +1,6 @@
 import {FC, useEffect, useRef, useState} from 'react';
 import {
   StyleSheet,
-  Text,
   TextInput,
   View,
   ViewStyle,

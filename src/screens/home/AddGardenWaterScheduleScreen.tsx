@@ -1,5 +1,6 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FC} from 'react';
+
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
 import {Button, Input, Typography} from '../../components';
@@ -26,7 +27,7 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
     toggleADay,
     changeDayCuantity,
     onSubmit,
-  } = useEditSchedule(route.params.gardenId);
+  } = useEditSchedule(route.params.scheduleId);
 
   const style = StyleSheet.create({
     screenContainer: {
@@ -47,6 +48,10 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
       paddingHorizontal: 20,
     },
   });
+
+  const onClickSubmit = () => {
+    onSubmit();
+  };
 
   return (
     <ScrollView style={{flex: 1}}>
@@ -86,7 +91,7 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
               ),
           )}
 
-          <Button size='large' buttonStyles={{marginBottom: 20, marginTop: 4}}>
+          <Button onPress={onClickSubmit} size='large' buttonStyles={{marginBottom: 20, marginTop: 4}}>
             Hecho
           </Button>
         </View>

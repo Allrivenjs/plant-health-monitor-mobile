@@ -83,11 +83,14 @@ export const useEditSchedule = (gardenId: number) => {
   const onSubmit = async () => {
     setLoading(true);
 
+    console.log(gardenId);
+    console.log({...editScheduleFormState});
+
     try {
-      const res = await axiosClient.post<EditScheduleForm>(
-        `schedule/:${gardenId}`,
+      const res = await axiosClient.put<EditScheduleForm>(
+        `schedule/${gardenId}`,
         {
-          editScheduleFormState,
+          ...editScheduleFormState,
         },
       );
 
@@ -97,8 +100,10 @@ export const useEditSchedule = (gardenId: number) => {
         'Horario actualizado',
         'Horario de regado del jardín actualizado correctamente.',
       );
+
+      navigate('HomeScreen');
     } catch (e) {
-      console.log('Error creating new garden: ', e);
+      console.log('Error trying to edit garden schedule: ', e);
       Alert.alert(
         'Ha ocurrido un error con los datos',
         'Por favor, revisa los datos ingresados e intente nuevamente.',

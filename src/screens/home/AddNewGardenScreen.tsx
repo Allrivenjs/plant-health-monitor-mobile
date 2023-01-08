@@ -3,22 +3,27 @@ import {ScrollView, StatusBar, StyleSheet, TextInput, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Button, Input} from '../../components';
+import {Controller} from 'react-hook-form';
 
-import {PlantImage} from '../../components/PlantImage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {useTheme} from '../../hooks';
+
+import {Button, Input, PlantImage, InputPicker} from '../../components';
+
+
 import {HomeScreenNavigationType} from './';
 import {useCreateNewGarden} from '../../home/hooks/useCreateNewGarden';
-import {Controller} from 'react-hook-form';
+
+
+import { levels } from '../../constants';
 
 export const AddNewGardenScreen = () => {
   const {colors, textStyles} = useTheme();
 
   const {navigate} = useNavigation<HomeScreenNavigationType>();
 
-  const {imageUrl, loading, register, control, onSubmit} = useCreateNewGarden();
+  const {imageUrl, loading, control, onSubmit} = useCreateNewGarden();
 
   const onClickNext = async () => {
     await onSubmit();
@@ -61,6 +66,7 @@ export const AddNewGardenScreen = () => {
               borderColor: colors.primary,
               marginVertical: 32,
             }}>
+
             <Controller
               name='name'
               control={control}
@@ -72,6 +78,8 @@ export const AddNewGardenScreen = () => {
                     paddingBottom: 6,
                     marginRight: 6,
                     color: colors.black,
+                    textAlign: 'center',
+                    flexWrap: 'wrap',
                   }}
                   placeholder='Nombra tu jardín'
                   value={value}
@@ -144,15 +152,14 @@ export const AddNewGardenScreen = () => {
             name='water_levels'
             control={control}
             render={({field: {value, onChange}}) => (
-              <Input
+              <InputPicker
                 name='Niveles de agua'
                 value={value}
                 onChange={onChange}
                 nameOnTop
                 leftIcon='opacity'
                 iconColor={colors.lightBlue}
-                placeholder='0'
-                containerStyles={{marginBottom: 16}}
+                items={levels}
               />
             )}
           />
@@ -161,22 +168,22 @@ export const AddNewGardenScreen = () => {
             name='sun_levels'
             control={control}
             render={({field: {value, onChange}}) => (
-              <Input
+              <InputPicker
                 name='Niveles de sol'
                 value={value}
                 onChange={onChange}
                 nameOnTop
                 leftIcon='wb-sunny'
                 iconColor={colors.lightYellow}
-                placeholder='0'
-                containerStyles={{marginBottom: 16}}
+                items={levels}
+                containerStyles={{marginTop: 16,}}
               />
             )}
           />
 
           <Button
             size='large'
-            buttonStyles={{marginBottom: 20, marginTop: 4}}
+            buttonStyles={{marginVertical: 20}}
             onPress={onClickNext}>
             Siguiente
           </Button>

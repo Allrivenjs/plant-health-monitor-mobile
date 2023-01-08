@@ -14,7 +14,7 @@ import {useTheme} from '../hooks';
 export type HomeStackParams = {
   HomeScreen: undefined;
   AddNewGardenScreen: undefined;
-  AddGardenWaterScheduleScreen: { gardenId: number };
+  AddGardenWaterScheduleScreen: { scheduleId: number };
   GardenScreen: undefined;
 };
 

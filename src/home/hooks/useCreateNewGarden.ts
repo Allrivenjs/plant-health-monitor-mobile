@@ -4,7 +4,6 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 
 import {Alert} from 'react-native';
-import {Garden} from '../../interfaces/garden';
 
 import {axiosClient} from '../../lib/axiosClient';
 import {HomeScreenNavigationType} from '../../screens/home';
@@ -15,14 +14,13 @@ interface NewGardenForm {
   plant_type: string;
   max_temperature: string;
   min_temperature: string;
-  water_levels: number;
-  sun_levels: number;
+  water_levels: string;
+  sun_levels: string;
 }
 
 export const useCreateNewGarden = () => {
   const {
     control,
-    register,
     handleSubmit,
     formState: {errors},
   } = useForm<NewGardenForm>({
@@ -31,8 +29,8 @@ export const useCreateNewGarden = () => {
       plant_type: '',
       max_temperature: '',
       min_temperature: '',
-      water_levels: 0,
-      sun_levels: 0,
+      water_levels: '0',
+      sun_levels: '0',
     },
   });
 
@@ -47,32 +45,32 @@ export const useCreateNewGarden = () => {
   const user = useUserStore(userStore => userStore.user);
 
   const onSubmit = handleSubmit(async (newGarden: NewGardenForm) => {
-    console.log({image: imageUrl});
     setLoading(true);
 
     try {
-      const res = await axiosClient.post<Garden>('garden', {
+      const res = await axiosClient.post('garden', {
         ...newGarden,
         user_id: user!.id,
         image: imageUrl,
       });
-      console.log('res: ', res);
 
-      navigate('AddGardenWaterScheduleScreen');
+      navigate('AddGardenWaterScheduleScreen', {
+        scheduleId: res.data.garden.schedule.id,
+      });
     } catch (e) {
       console.log('Error creating new garden: ', e);
       Alert.alert(
         'Ha ocurrido un error con los datos',
         'Por favor, revisa los datos ingresados e intente nuevamente.',
       );
-    }
+    };
+
     setLoading(false);
   });
 
   return {
     control,
     loading,
-    register,
     imageUrl,
 
     onSubmit,

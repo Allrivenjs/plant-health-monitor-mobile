@@ -1,9 +1,10 @@
+import { IInputPickerItem } from "../components/InputPicker";
 import { EditScheduleForm } from "../home/hooks/useEditSchedule";
 
 interface Weekdays {
   dayNumber: number;
   keyName: keyof EditScheduleForm;
-  name: 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado';
+  name: 'Lunes' | 'Martes' | 'Miercoles' | 'Jueves' | 'Viernes' | 'Sabado' | 'Domingo';
   abbreviation: 'LU' | 'MA' | 'MI' | 'JU' | 'VI' | 'SA' | 'DO';
 }
 
@@ -49,5 +50,29 @@ export const weekdays: Weekdays[] = [
     keyName: 'sunday',
     name: 'Domingo',
     abbreviation: 'DO',
+  },
+];
+
+export enum Levels {
+  LOW = '0',
+  MEDIUM = '1',
+  HIGH = '2'
+};
+
+export const levels: IInputPickerItem[] = [
+  {
+    label: 'Bajo',
+    value: Levels.LOW,
+    active: false,
+  },
+  {
+    label: 'Medio',
+    value: Levels.MEDIUM,
+    active: true,
+  },
+  {
+    label: 'Alto',
+    value: Levels.HIGH,
+    active: false,
   },
 ];
