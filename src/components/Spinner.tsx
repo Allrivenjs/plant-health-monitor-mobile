@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { useTheme } from '../hooks';
 
-export const Spinner = () => {
+export const Spinner: FC = () => {
   const {colors} = useTheme();
   return (
     <View

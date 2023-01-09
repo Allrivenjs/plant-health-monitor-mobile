@@ -184,7 +184,9 @@ export const AddNewGardenScreen = () => {
           <Button
             size='large'
             buttonStyles={{marginVertical: 20}}
-            onPress={onClickNext}>
+            onPress={onClickNext}
+            loading={loading}
+          >
             Siguiente
           </Button>
         </View>
