@@ -3,12 +3,12 @@ import {StyleSheet, View} from 'react-native';
 
 import {Day} from '../home/components';
 
-import {IDayOfWeekWithWateringCuantity} from '../interfaces/schedule';
+import {DayOfSchedule} from '../interfaces/schedule';
 
 import {useTheme} from '../hooks';
 
 interface WeekScheduleProps {
-  weekSchedule: IDayOfWeekWithWateringCuantity[];
+  weekSchedule: DayOfSchedule[];
 }
 
 export const WeekScheduleHistory: FC<WeekScheduleProps> = ({weekSchedule}) => {
@@ -26,7 +26,7 @@ export const WeekScheduleHistory: FC<WeekScheduleProps> = ({weekSchedule}) => {
 
   return (
     <View style={styles.container}>
-      {weekSchedule.map(({id, name, active, cuantity}) => (
+      {weekSchedule.map(({id, name, active, cuantity, keyName, abbreviation}) => (
         <View key={id} style={{alignItems: 'center'}}>
           <View
             style={{
@@ -58,6 +58,9 @@ export const WeekScheduleHistory: FC<WeekScheduleProps> = ({weekSchedule}) => {
             active={active}
             notActiveColor={colors.gray}
             activeColor={colors.lightBlue}
+            keyName={keyName}
+            abbreviation={abbreviation}
+            disabled
           />
         </View>
       ))}

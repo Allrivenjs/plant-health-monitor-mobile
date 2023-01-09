@@ -14,8 +14,8 @@ import {useTheme} from '../hooks';
 export type HomeStackParams = {
   HomeScreen: undefined;
   AddNewGardenScreen: undefined;
-  AddGardenWaterScheduleScreen: { scheduleId: number };
-  GardenScreen: undefined;
+  AddGardenWaterScheduleScreen: {scheduleId: number};
+  GardenScreen: {gardenId: number};
 };
 
 const {Screen, Navigator} = createNativeStackNavigator<HomeStackParams>();

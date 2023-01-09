@@ -1,12 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {FlatList, ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import {Input, Typography} from '../../components';
-import { AppMenu } from '../../components/AppMenu';
+import {AppMenu} from '../../components/AppMenu';
 
 import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
-import { useHomeScreen } from '../../home/hooks/useHomeScreen';
+import {useHomeScreen} from '../../home/hooks/useHomeScreen';
 
 import {useTheme} from '../../hooks';
 import {ActionOld} from '../../interfaces/action';
@@ -17,22 +24,26 @@ const mockGardenCardData: Garden[] = [
   {
     id: '1',
     name: 'Veraneras',
-    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
+    image:
+      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
   {
     id: '2',
     name: 'Mataratones',
-    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
+    image:
+      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
   {
     id: '3',
     name: 'Veraneras',
-    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
+    image:
+      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
   {
     id: '4',
     name: 'Mataratones',
-    image: 'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
+    image:
+      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
   },
 ];
 
@@ -59,9 +70,9 @@ export type HomeScreenNavigationType = NativeStackNavigationProp<
 export const HomeScreen = () => {
   const {colors} = useTheme();
 
-  const { navigate } = useNavigation<HomeScreenNavigationType>();
+  const {navigate} = useNavigation<HomeScreenNavigationType>();
 
-  const { gardens, actions } = useHomeScreen();
+  const {gardens, actions} = useHomeScreen();
 
   const styles = StyleSheet.create({
     screenContainer: {
@@ -85,7 +96,6 @@ export const HomeScreen = () => {
       flexDirection: 'row',
     },
   });
-
 
   return (
     <ScrollView style={{flex: 1}}>
@@ -117,7 +127,11 @@ export const HomeScreen = () => {
           }}
           data={gardens}
           renderItem={({item}) => (
-            <GardenCard name={item.name} source={item.image} />
+            <GardenCard
+              name={item.name}
+              gardenId={item.id}
+              source={item.image}
+            />
           )}
           keyExtractor={item => String(item.id)}
           ListFooterComponent={
@@ -142,9 +156,7 @@ export const HomeScreen = () => {
               Ultimas acciones
             </Typography>
 
-            <TouchableOpacity
-              onPress={() => navigate('ActionScreen') }
-            >
+            <TouchableOpacity onPress={() => navigate('ActionScreen')}>
               <Typography
                 size='body'
                 style={{

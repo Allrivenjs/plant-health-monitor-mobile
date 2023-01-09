@@ -91,12 +91,11 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
               ),
           )}
 
-          <Button 
-            onPress={onClickSubmit} 
-            size='large' 
+          <Button
+            onPress={onClickSubmit}
+            size='large'
             buttonStyles={{marginBottom: 20, marginTop: 4}}
-            loading={loading}
-          >
+            loading={loading}>
             Hecho
           </Button>
         </View>
