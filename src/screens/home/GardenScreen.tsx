@@ -41,14 +41,14 @@ export const GardenScreen: FC<Props> = ({route}) => {
 
   const {navigate} = useNavigation<HomeScreenNavigationType>();
 
-  const {loading, garden} = useGardenScreen(route.params.gardenId);
+  const {garden} = useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
     navigate('AddNewGardenScreen');
   };
 
   const onClickScheduleSettings = () => {
-    navigate('AddGardenWaterScheduleScreen', {scheduleId: garden.schedule.id});
+    navigate('AddGardenWaterScheduleScreen', {scheduleId: garden!.schedule.id});
   };
 
   const style = StyleSheet.create({
@@ -74,14 +74,14 @@ export const GardenScreen: FC<Props> = ({route}) => {
 
   return (
     <>
-      {loading ? (
+      {!garden ? (
         <Spinner />
       ) : (
         <ScrollView style={{flex: 1}}>
           <StatusBar backgroundColor={colors.white} barStyle='dark-content' />
           <View style={style.screenContainer}>
             <View style={style.plantContainer}>
-              <PlantImage source={garden.image} />
+              <PlantImage source={garden!.image} />
               <View
                 style={{
                   position: 'absolute',
@@ -95,7 +95,7 @@ export const GardenScreen: FC<Props> = ({route}) => {
                   marginBottom: -24,
                   zIndex: 100,
                 }}>
-                <Typography size='heading2'>{garden.name}</Typography>
+                <Typography size='heading2'>{garden!.name}</Typography>
               </View>
             </View>
 
@@ -201,7 +201,7 @@ export const GardenScreen: FC<Props> = ({route}) => {
                 </TouchableOpacity>
               </View>
 
-              <WeekScheduleHistory weekSchedule={garden.schedule.daysOfSchedule} />
+              <WeekScheduleHistory weekSchedule={garden!.schedule.daysOfSchedule} />
 
               <View style={{paddingBottom: 48}} />
             </View>

@@ -9,6 +9,7 @@ interface GardensState {
   loading: boolean;
   fetchGardens: () => void;
   addGarden: (garden: Garden) => void;
+  getGardenById: (gardenId: number) => Garden | undefined;
   setGardens: (gardens: Garden[]) => void;
   setLoading: (loading: boolean) => void;
 }
@@ -35,6 +36,9 @@ export const useGardensStore = create<GardensState>((set, get) => ({
     const gardens = get().gardens;
     gardens.push(garden);
     set({gardens});
+  },
+  getGardenById: (gardenId: number) => {
+    return get().gardens.find((garden) => garden.id === gardenId);
   },
   setGardens: (gardens: Garden[]) => set(state => ({gardens})),
   setLoading: (loading: boolean) => set(state => ({loading})),

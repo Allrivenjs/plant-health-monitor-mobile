@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import {Alert} from 'react-native';
+
 import {Garden} from '../../interfaces/garden';
-import {axiosClient} from '../../lib/axiosClient';
+
+import { useGardensStore } from '../../store';
 
 export const useGardenScreen = (gardenId: number) => {
-  const [loading, setLoading] = useState(true);
-  const [garden, setGarden] = useState<Garden>({
+  const [garden, setGarden] = useState<Garden | undefined>({
     id: 0,
     name: '',
     plant_type: '',
@@ -25,27 +25,13 @@ export const useGardenScreen = (gardenId: number) => {
     }
   });
 
-  const getGarden = async () => {
-    setLoading(true);
-    try {
-      const res = await axiosClient.get(`garden/${gardenId}`);
-      setGarden(res.data.garden);
-    } catch (e) {
-      Alert.alert(
-        'Error al conectar con el servidor',
-        'Error al intentar obtener los datos del jardin desde servidor, por favor ingrese de nuevo',
-      );
-      console.log('error on login request: ', e);
-    }
-    setLoading(false);
-  };
+  const getGardenById = useGardensStore(gardensStore => gardensStore.getGardenById);
 
   useEffect(() => {
-    getGarden();
+    setGarden(getGardenById(gardenId));
   }, []);
 
   return {
-    loading,
     garden,
   };
 };

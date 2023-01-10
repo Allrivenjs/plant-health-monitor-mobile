@@ -23,6 +23,7 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
 
   const {
     loading,
+    garden,
     editScheduleFormState,
     toggleADay,
     changeDayCuantity,
