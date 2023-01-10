@@ -48,7 +48,7 @@ export const GardenScreen: FC<Props> = ({route}) => {
   };
 
   const onClickScheduleSettings = () => {
-    navigate('AddGardenWaterScheduleScreen', {scheduleId: 11});
+    navigate('AddGardenWaterScheduleScreen', {scheduleId: garden.schedule.id});
   };
 
   const style = StyleSheet.create({

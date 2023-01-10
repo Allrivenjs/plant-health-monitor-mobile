@@ -7,6 +7,7 @@ import {Alert} from 'react-native';
 
 import {axiosClient} from '../../lib/axiosClient';
 import {HomeScreenNavigationType} from '../../screens/home';
+import { useGardensStore } from '../../store';
 import {useUserStore} from '../../store/useUserStore';
 
 interface NewGardenForm {
@@ -44,6 +45,8 @@ export const useCreateNewGarden = () => {
 
   const user = useUserStore(userStore => userStore.user);
 
+  const addGarden = useGardensStore(gardensStore => gardensStore.addGarden);
+
   const onSubmit = handleSubmit(async (newGarden: NewGardenForm) => {
     setLoading(true);
 
@@ -53,6 +56,8 @@ export const useCreateNewGarden = () => {
         user_id: user!.id,
         image: imageUrl,
       });
+
+      addGarden(res.data.garden);
 
       navigate('AddGardenWaterScheduleScreen', {
         scheduleId: res.data.garden.schedule.id,

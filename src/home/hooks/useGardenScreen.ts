@@ -17,13 +17,18 @@ export const useGardenScreen = (gardenId: number) => {
     water_levels: 0,
     created_at: new Date(),
     updated_at: new Date(),
+    schedule: {
+      id: 0,
+      daysOfSchedule: [],
+      created_at: '',
+      updated_at: '',
+    }
   });
 
   const getGarden = async () => {
     setLoading(true);
     try {
       const res = await axiosClient.get(`garden/${gardenId}`);
-      console.log({...res.data});
       setGarden(res.data.garden);
     } catch (e) {
       Alert.alert(

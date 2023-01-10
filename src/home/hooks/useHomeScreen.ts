@@ -1,30 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
-import { Action } from '../../interfaces/action';
+import {useEffect, useState} from 'react';
+import {Alert} from 'react-native';
+import {Action} from '../../interfaces/action';
 
-import { Garden } from '../../interfaces/garden';
-import { axiosClient } from '../../lib/axiosClient';
+import {axiosClient} from '../../lib/axiosClient';
+import {useGardensStore} from '../../store';
 
 export const useHomeScreen = () => {
   const [loading, setLoading] = useState(true);
 
-  const [gardens, setGardens] = useState<Garden[]>([]);
   const [actions, setActions] = useState<Action[]>([]);
 
-  const getGardens = async () => {
-    setLoading(true);
-    try {
-      const res = await axiosClient.get('garden');
-      setGardens(res.data.gardens);
-    } catch (e) {
-      Alert.alert(
-        'Error al conectar con el servidor',
-        'Error al intentar obtener los jardines del servidor, por favor ingrese de nuevo',
-      );
-      console.log('error on login request: ', e);
-    }
-    setLoading(false);
-  };
+  const gardens = useGardensStore(gardensStore => gardensStore.gardens);
+  const fetchGardens = useGardensStore(gardensStore => gardensStore.fetchGardens);
+  const loadingGardens = useGardensStore(gardensStore => gardensStore.loading);
 
   const getActions = async () => {
     setLoading(true);
@@ -41,12 +29,14 @@ export const useHomeScreen = () => {
     setLoading(false);
   };
 
+
   useEffect(() => {
-    getGardens();
+    fetchGardens();
     getActions();
   }, []);
 
   return {
+    loadingGardens,
     gardens,
     actions,
   };

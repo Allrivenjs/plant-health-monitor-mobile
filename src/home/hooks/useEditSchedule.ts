@@ -83,9 +83,6 @@ export const useEditSchedule = (gardenId: number) => {
   const onSubmit = async () => {
     setLoading(true);
 
-    console.log(gardenId);
-    console.log({...editScheduleFormState});
-
     try {
       const res = await axiosClient.put<EditScheduleForm>(
         `schedule/${gardenId}`,
@@ -93,8 +90,6 @@ export const useEditSchedule = (gardenId: number) => {
           ...editScheduleFormState,
         },
       );
-
-      console.log('res: ', res);
 
       Alert.alert(
         'Horario actualizado',
