@@ -26,6 +26,8 @@ export const useGardenScreen = (gardenId: number) => {
   });
 
   const getGardenById = useGardensStore(gardensStore => gardensStore.getGardenById);
+  const deleteGardenById = useGardensStore(gardensStore => gardensStore.deleteGardenById);
+
 
   useEffect(() => {
     setGarden(getGardenById(gardenId));
@@ -33,5 +35,6 @@ export const useGardenScreen = (gardenId: number) => {
 
   return {
     garden,
+    deleteGardenById,
   };
 };

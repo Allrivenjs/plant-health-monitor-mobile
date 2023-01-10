@@ -12,6 +12,7 @@ interface GardensState {
   getGardenById: (gardenId: number) => Garden | undefined;
   setGardens: (gardens: Garden[]) => void;
   setLoading: (loading: boolean) => void;
+  deleteGardenById: (gardenId: number) => void;
 }
 
 export const useGardensStore = create<GardensState>((set, get) => ({
@@ -38,7 +39,22 @@ export const useGardensStore = create<GardensState>((set, get) => ({
     set({gardens});
   },
   getGardenById: (gardenId: number) => {
-    return get().gardens.find((garden) => garden.id === gardenId);
+    return get().gardens.find(garden => garden.id === gardenId);
+  },
+  deleteGardenById: async (gardenId: number) => {
+    set({loading: true});
+    try {
+      await axiosClient.delete(`garden/${gardenId}`);
+      get().fetchGardens();
+
+    } catch (e) {
+      Alert.alert(
+        'Error al conectar con el servidor',
+        'Error al intentar obtener los jardines del servidor, por favor ingrese de nuevo',
+      );
+      console.log('error on login request: ', e);
+    }
+    set({loading: false});
   },
   setGardens: (gardens: Garden[]) => set(state => ({gardens})),
   setLoading: (loading: boolean) => set(state => ({loading})),

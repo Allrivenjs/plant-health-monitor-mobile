@@ -1,9 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
 import {FC} from 'react';
+
 import {
   ScrollView,
   StatusBar,
@@ -12,19 +8,32 @@ import {
   View,
 } from 'react-native';
 
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+
+import {useNavigation} from '@react-navigation/native';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {Spinner, Typography} from '../../components';
+import {
+  Button,
+  Spinner,
+  Typography,
+  PlantImage,
+  WeekScheduleHistory,
+} from '../../components';
 
-import {PlantImage} from '../../components/PlantImage';
-import {WeekScheduleHistory} from '../../components/WeekScheduleHistory';
 import {InfoCard} from '../../home/components/InfoCard';
+
 import {useGardenScreen} from '../../home/hooks';
 
 import {useTheme} from '../../hooks';
-import {IDayOfWeekWithWateringCuantity} from '../../interfaces/schedule';
-import {HomeStackParams} from '../../navigator';
+
 import {HomeScreenNavigationType} from './HomeScreen';
+
+import {HomeStackParams} from '../../navigator';
 
 const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
 
@@ -41,7 +50,7 @@ export const GardenScreen: FC<Props> = ({route}) => {
 
   const {navigate} = useNavigation<HomeScreenNavigationType>();
 
-  const {garden} = useGardenScreen(route.params.gardenId);
+  const {garden, deleteGardenById} = useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
     navigate('AddNewGardenScreen');
@@ -49,6 +58,11 @@ export const GardenScreen: FC<Props> = ({route}) => {
 
   const onClickScheduleSettings = () => {
     navigate('AddGardenWaterScheduleScreen', {scheduleId: garden!.schedule.id});
+  };
+
+  const onClickDeleteGarden = () => {
+    deleteGardenById(route.params.gardenId);
+    navigate('HomeScreen');
   };
 
   const style = StyleSheet.create({
@@ -201,7 +215,19 @@ export const GardenScreen: FC<Props> = ({route}) => {
                 </TouchableOpacity>
               </View>
 
-              <WeekScheduleHistory weekSchedule={garden!.schedule.daysOfSchedule} />
+              <WeekScheduleHistory
+                weekSchedule={garden!.schedule.daysOfSchedule}
+              />
+
+              <Button
+                colorScheme='warning'
+                icon='delete'
+                buttonStyles={{marginTop: 48}}
+                size='medium'
+                  onPress={onClickDeleteGarden}
+              >
+                Eliminar jardín
+              </Button>
 
               <View style={{paddingBottom: 48}} />
             </View>
