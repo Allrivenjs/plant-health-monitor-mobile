@@ -1,10 +1,11 @@
 import {FC} from 'react';
 
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 
-import {Button, Input, Typography} from '../../components';
-import {weekdays} from '../../constants';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+import {Button, Input, SliderInput, Typography} from '../../components';
+import {maxWaterCuantity, weekdays} from '../../constants';
 
 import {WeekSchedule} from '../../home/components/WeekSchedule';
 import {useEditSchedule} from '../../home/hooks/useEditSchedule';
@@ -75,19 +76,16 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
           {weekdays.map(
             ({keyName, name}, index) =>
               editScheduleFormState[keyName].active && (
-                <Input
+                <SliderInput
+                  primaryColor={colors.lightBlue}
                   key={weekdays[index].dayNumber}
-                  name={`${name} cantidad`}
-                  value={String(editScheduleFormState[keyName].cuantity)}
-                  onChange={e => changeDayCuantity(keyName, Number(e))}
-                  nameOnTop
-                  leftIcon='opacity'
-                  iconColor={colors.lightBlue}
-                  placeholder='2'
+                  value={editScheduleFormState[keyName].cuantity}
+                  label={`${name} cantidad`}
+                  maximumValue={maxWaterCuantity}
+                  minimunValue={0}
                   containerStyles={{marginBottom: 20}}
-                  props={{
-                    keyboardType: 'numeric',
-                  }}
+                  onChange={e => changeDayCuantity(keyName, Number(e))}
+                  unit='ml'
                 />
               ),
           )}

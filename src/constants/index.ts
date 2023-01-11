@@ -76,3 +76,6 @@ export const levels: IInputPickerItem[] = [
     active: false,
   },
 ];
+
+
+export const maxWaterCuantity = 1000;

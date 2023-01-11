@@ -16,51 +16,8 @@ import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
 import {useHomeScreen} from '../../home/hooks/useHomeScreen';
 
 import {useTheme} from '../../hooks';
-import {ActionOld} from '../../interfaces/action';
-import {Garden} from '../../interfaces/garden';
+
 import {HomeStackParams} from '../../navigator';
-
-const mockGardenCardData: Garden[] = [
-  {
-    id: '1',
-    name: 'Veraneras',
-    image:
-      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
-  },
-  {
-    id: '2',
-    name: 'Mataratones',
-    image:
-      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
-  },
-  {
-    id: '3',
-    name: 'Veraneras',
-    image:
-      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
-  },
-  {
-    id: '4',
-    name: 'Mataratones',
-    image:
-      'https://res.cloudinary.com/dyuhuguiq/image/upload/v1672598755/plant1_iovkrr.png',
-  },
-];
-
-const mockActionData: ActionOld[] = [
-  {
-    type: 'watering',
-    garden: mockGardenCardData[0],
-    description: 'El jardín ha sido regado',
-    lastTime: 'El ultimo regado fue hace 6 horas',
-  },
-  {
-    type: 'water-refill',
-    garden: mockGardenCardData[1],
-    description: 'El jardín tiene bajos niveles de agua',
-    lastTime: 'La ultima ves que se relleno el agua fue hace 2 días',
-  },
-];
 
 export type HomeScreenNavigationType = NativeStackNavigationProp<
   HomeStackParams,
@@ -156,7 +113,7 @@ export const HomeScreen = () => {
               Ultimas acciones
             </Typography>
 
-            <TouchableOpacity onPress={() => navigate('ActionScreen')}>
+            <TouchableOpacity onPress={() => navigate()}>
               <Typography
                 size='body'
                 style={{

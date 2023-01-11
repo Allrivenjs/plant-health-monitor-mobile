@@ -2,11 +2,11 @@ import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 
 import {Alert} from 'react-native';
-import { Garden } from '../../interfaces/garden';
+import {Garden} from '../../interfaces/garden';
 
 import {axiosClient} from '../../lib/axiosClient';
 import {HomeScreenNavigationType} from '../../screens/home';
-import { useGardensStore } from '../../store';
+import {useGardensStore} from '../../store';
 
 export interface DayOfWeek {
   dayNumber: number;
@@ -64,7 +64,9 @@ export const useEditSchedule = (gardenId: number) => {
 
   const [garden, setGarden] = useState<Garden | undefined>();
 
-  const getGardenById = useGardensStore(gardenStore => gardenStore.getGardenById);
+  const getGardenById = useGardensStore(
+    gardenStore => gardenStore.getGardenById,
+  );
 
   const toggleADay = (day: keyof EditScheduleForm) => {
     setEditScheduleFormState(prevState => ({
@@ -112,7 +114,6 @@ export const useEditSchedule = (gardenId: number) => {
     }
     setLoading(false);
   };
-
 
   useEffect(() => {
     setGarden(getGardenById(gardenId));

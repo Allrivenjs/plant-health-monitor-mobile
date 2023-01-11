@@ -1,4 +1,6 @@
-import {SafeAreaView, Text} from 'react-native';
+import { useEffect } from 'react';
+
+import {SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -10,11 +12,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ActionStackNavigator} from './navigator/ActionStackNavigatior';
 
 import {DefaultTheme} from '@react-navigation/native';
-import { useEffect } from 'react';
 import { useAuth } from './hooks/useAuth';
 import { Spinner } from './components/Spinner';
 
-const Tab = createBottomTabNavigator();
 
 const stackTheme = {
   ...DefaultTheme,
@@ -23,6 +23,13 @@ const stackTheme = {
     background: defaultTheme.colors.background,
   },
 };
+
+export type TabStackParams = {
+  Home: undefined;
+  Action: undefined;
+};
+
+const Tab = createBottomTabNavigator<TabStackParams>();
 
 export const App = () => {
   const {status, verifyUserAuthentication} = useAuth();

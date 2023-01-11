@@ -13,8 +13,6 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 
-import {useNavigation} from '@react-navigation/native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
@@ -25,13 +23,11 @@ import {
   WeekScheduleHistory,
 } from '../../components';
 
-import {InfoCard} from '../../home/components/InfoCard';
+import {InfoCard} from '../../home/components';
 
 import {useGardenScreen} from '../../home/hooks';
 
 import {useTheme} from '../../hooks';
-
-import {HomeScreenNavigationType} from './HomeScreen';
 
 import {HomeStackParams} from '../../navigator';
 
@@ -45,24 +41,24 @@ export type GardenScreenNavigationType = NativeStackNavigationProp<
 interface Props
   extends NativeStackScreenProps<HomeStackParams, 'GardenScreen'> {}
 
-export const GardenScreen: FC<Props> = ({route}) => {
+export const GardenScreen: FC<Props> = ({navigation, route}) => {
   const {colors} = useTheme();
-
-  const {navigate} = useNavigation<HomeScreenNavigationType>();
 
   const {garden, deleteGardenById} = useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
-    navigate('AddNewGardenScreen');
+    navigation.navigate('AddNewGardenScreen');
   };
 
   const onClickScheduleSettings = () => {
-    navigate('AddGardenWaterScheduleScreen', {scheduleId: garden!.schedule.id});
+    navigation.navigate('AddGardenWaterScheduleScreen', {
+      scheduleId: garden!.schedule.id,
+    });
   };
 
   const onClickDeleteGarden = () => {
     deleteGardenById(route.params.gardenId);
-    navigate('HomeScreen');
+    navigation.navigate('HomeScreen');
   };
 
   const style = StyleSheet.create({
@@ -224,8 +220,7 @@ export const GardenScreen: FC<Props> = ({route}) => {
                 icon='delete'
                 buttonStyles={{marginTop: 48}}
                 size='medium'
-                  onPress={onClickDeleteGarden}
-              >
+                onPress={onClickDeleteGarden}>
                 Eliminar jardín
               </Button>
 

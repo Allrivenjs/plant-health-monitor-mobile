@@ -8,3 +8,4 @@ export * from './AppLineChart';
 export * from './AppMenu';
 export * from './Spinner';
 export * from './WeekScheduleHistory';
+export * from './SliderInput';
