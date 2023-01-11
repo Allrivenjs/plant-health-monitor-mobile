@@ -5,7 +5,7 @@ import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {Button, Input, SliderInput, Typography} from '../../components';
-import {maxWaterCuantity, weekdays} from '../../constants';
+import {maxWaterCuantity, minWaterCuantity, weekdays} from '../../constants';
 
 import {WeekSchedule} from '../../home/components/WeekSchedule';
 import {useEditSchedule} from '../../home/hooks/useEditSchedule';
@@ -82,7 +82,7 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
                   value={editScheduleFormState[keyName].cuantity}
                   label={`${name} cantidad`}
                   maximumValue={maxWaterCuantity}
-                  minimunValue={0}
+                  minimunValue={minWaterCuantity}
                   containerStyles={{marginBottom: 20}}
                   onChange={e => changeDayCuantity(keyName, Number(e))}
                   unit='ml'
