@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {FC} from 'react';
+
 import {
   FlatList,
   ScrollView,
@@ -8,6 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 
 import {Input, Typography} from '../../components';
 import {AppMenu} from '../../components/AppMenu';
@@ -24,10 +30,10 @@ export type HomeScreenNavigationType = NativeStackNavigationProp<
   'HomeScreen'
 >;
 
-export const HomeScreen = () => {
-  const {colors} = useTheme();
+interface Props extends NativeStackScreenProps<HomeStackParams, 'HomeScreen'> {}
 
-  const {navigate} = useNavigation<HomeScreenNavigationType>();
+export const HomeScreen: FC<Props> = ({navigation}) => {
+  const {colors} = useTheme();
 
   const {gardens, actions} = useHomeScreen();
 
@@ -113,7 +119,7 @@ export const HomeScreen = () => {
               Ultimas acciones
             </Typography>
 
-            <TouchableOpacity onPress={() => navigate()}>
+            <TouchableOpacity onPress={() => navigation.navigate('Action')}>
               <Typography
                 size='body'
                 style={{

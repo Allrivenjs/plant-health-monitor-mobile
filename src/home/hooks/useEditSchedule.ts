@@ -30,31 +30,33 @@ const defaultDayOfWeek = {
   cuantity: 0,
 };
 
+const defaultSchedule = {
+  monday: {
+    ...defaultDayOfWeek,
+  },
+  tuesday: {
+    ...defaultDayOfWeek,
+  },
+  wednesday: {
+    ...defaultDayOfWeek,
+  },
+  thursday: {
+    ...defaultDayOfWeek,
+  },
+  friday: {
+    ...defaultDayOfWeek,
+  },
+  saturday: {
+    ...defaultDayOfWeek,
+  },
+  sunday: {
+    ...defaultDayOfWeek,
+  },
+};
+
 export const useEditSchedule = (gardenId: number) => {
   const [editScheduleFormState, setEditScheduleFormState] =
-    useState<EditScheduleForm>({
-      monday: {
-        ...defaultDayOfWeek,
-      },
-      tuesday: {
-        ...defaultDayOfWeek,
-      },
-      wednesday: {
-        ...defaultDayOfWeek,
-      },
-      thursday: {
-        ...defaultDayOfWeek,
-      },
-      friday: {
-        ...defaultDayOfWeek,
-      },
-      saturday: {
-        ...defaultDayOfWeek,
-      },
-      sunday: {
-        ...defaultDayOfWeek,
-      },
-    });
+    useState<EditScheduleForm>(defaultSchedule);
 
   const [loading, setLoading] = useState(false);
 
@@ -63,6 +65,10 @@ export const useEditSchedule = (gardenId: number) => {
   const [test, setTest] = useState<any>();
 
   const [garden, setGarden] = useState<Garden | undefined>();
+
+  const fetchGardens = useGardensStore(
+    gardensStore => gardensStore.fetchGardens,
+  );
 
   const getGardenById = useGardensStore(
     gardenStore => gardenStore.getGardenById,
@@ -98,6 +104,7 @@ export const useEditSchedule = (gardenId: number) => {
           ...editScheduleFormState,
         },
       );
+      fetchGardens();
 
       Alert.alert(
         'Horario actualizado',
@@ -117,13 +124,47 @@ export const useEditSchedule = (gardenId: number) => {
 
   useEffect(() => {
     setGarden(getGardenById(gardenId));
-    // TODO
-    // setEditScheduleFormState({
-    //   monday: {
-    //     ...garden?.schedule.daysOfSchedule
-    //   }
-    // });
-  }, []);
+
+    if (!garden) return; 
+
+    setEditScheduleFormState({
+      monday: {
+        active: garden!.schedule.daysOfSchedule[0].active,
+        dayNumber: garden!.schedule.daysOfSchedule[0].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[0].cuantity,
+      },
+      tuesday: {
+        active: garden!.schedule.daysOfSchedule[1].active,
+        dayNumber: garden!.schedule.daysOfSchedule[1].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[1].cuantity,
+      },
+      wednesday: {
+        active: garden!.schedule.daysOfSchedule[2].active,
+        dayNumber: garden!.schedule.daysOfSchedule[2].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[2].cuantity,
+      },
+      thursday: {
+        active: garden!.schedule.daysOfSchedule[3].active,
+        dayNumber: garden!.schedule.daysOfSchedule[3].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[3].cuantity,
+      },
+      friday: {
+        active: garden!.schedule.daysOfSchedule[4].active,
+        dayNumber: garden!.schedule.daysOfSchedule[4].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[4].cuantity,
+      },
+      saturday: {
+        active: garden!.schedule.daysOfSchedule[5].active,
+        dayNumber: garden!.schedule.daysOfSchedule[5].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[5].cuantity,
+      },
+      sunday: {
+        active: garden!.schedule.daysOfSchedule[6].active,
+        dayNumber: garden!.schedule.daysOfSchedule[6].dayNumber,
+        cuantity: garden!.schedule.daysOfSchedule[6].cuantity,
+      },
+    });
+  }, [garden]);
 
   return {
     loading,
