@@ -37,6 +37,10 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
 
   const {gardens, actions} = useHomeScreen();
 
+  const onClickCreateNewGarden = () => {
+    navigation.navigate('AddNewGardenScreen', {isEditing: false,});
+  };
+
   const styles = StyleSheet.create({
     screenContainer: {
       flex: 1,
@@ -99,7 +103,7 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
           keyExtractor={item => String(item.id)}
           ListFooterComponent={
             <View style={{flexDirection: 'row'}}>
-              <CreateGardenCard />
+              <CreateGardenCard onPress={onClickCreateNewGarden} />
               <View style={{width: 30}} />
             </View>
           }

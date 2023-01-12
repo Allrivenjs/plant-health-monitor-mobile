@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import {useForm} from 'react-hook-form';
 
@@ -7,7 +7,7 @@ import {Alert} from 'react-native';
 
 import {axiosClient} from '../../lib/axiosClient';
 import {HomeScreenNavigationType} from '../../screens/home';
-import { useGardensStore } from '../../store';
+import {useGardensStore} from '../../store';
 import {useUserStore} from '../../store/useUserStore';
 
 interface NewGardenForm {
@@ -19,10 +19,14 @@ interface NewGardenForm {
   sun_levels: string;
 }
 
-export const useCreateNewGarden = () => {
+export const useCreateNewGarden = (
+  isEditing: boolean = false,
+  gardenId: number,
+) => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: {errors},
   } = useForm<NewGardenForm>({
     defaultValues: {
@@ -46,8 +50,14 @@ export const useCreateNewGarden = () => {
   const user = useUserStore(userStore => userStore.user);
 
   const addGarden = useGardensStore(gardensStore => gardensStore.addGarden);
+  const getGardenById = useGardensStore(
+    gardensStore => gardensStore.getGardenById,
+  );
+  const fetchGardens = useGardensStore(
+    gardensStore => gardensStore.fetchGardens,
+  );
 
-  const onSubmit = handleSubmit(async (newGarden: NewGardenForm) => {
+  const postNewGarden = async (newGarden: NewGardenForm) => {
     setLoading(true);
 
     try {
@@ -68,10 +78,50 @@ export const useCreateNewGarden = () => {
         'Ha ocurrido un error con los datos',
         'Por favor, revisa los datos ingresados e intente nuevamente.',
       );
-    };
+    }
 
     setLoading(false);
-  });
+  };
+
+  const editAGarden = async (newGarden: NewGardenForm) => {
+    setLoading(true);
+    try {
+      const res = await axiosClient.put(`garden/${gardenId}`, {
+        ...newGarden,
+        user_id: user!.id,
+        image: imageUrl,
+      });
+
+      fetchGardens();
+
+      navigate('HomeScreen');
+    } catch (e) {
+      console.log('Error creating new garden: ', e);
+      Alert.alert(
+        'Ha ocurrido un error con los datos',
+        'Por favor, revisa los datos ingresados e intente nuevamente.',
+      );
+    }
+
+    setLoading(false);
+  };
+
+  const onSubmit = handleSubmit(isEditing ? editAGarden : postNewGarden);
+
+  useEffect(() => {
+    console.log(gardenId);
+    const garden = getGardenById(gardenId);
+    console.log(garden);
+
+    if (garden && isEditing) {
+      setValue('name', garden!.name);
+      setValue('plant_type', garden!.plant_type);
+      setValue('max_temperature', String(garden!.max_temperature));
+      setValue('min_temperature', String(garden!.min_temperature));
+      setValue('sun_levels', String(garden!.sun_levels));
+      setValue('water_levels', String(garden!.water_levels));
+    }
+  }, []);
 
   return {
     control,

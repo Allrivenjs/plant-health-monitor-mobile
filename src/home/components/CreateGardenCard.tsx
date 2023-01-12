@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { FC } from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -6,11 +6,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Typography } from '../../components';
 
 import { useTheme } from '../../hooks';
-import { HomeScreenNavigationType } from '../../screens/HomeScreen';
 
 
-export const CreateGardenCard = () => {
-  const {navigate} = useNavigation<HomeScreenNavigationType>();
+interface CreateGardenCardProps {
+  onPress: () => void;
+};
+
+export const CreateGardenCard: FC<CreateGardenCardProps> = ({onPress}) => {
   const {colors } = useTheme();
 
   const styles = StyleSheet.create({
@@ -32,7 +34,7 @@ export const CreateGardenCard = () => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigate('AddNewGardenScreen')}
+      onPress={() => onPress()}
     >
       <View style={styles.gardenCardContainer}>
         <View style={{flex: 8, justifyContent: 'center', alignItems: 'center'}}>

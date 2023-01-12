@@ -13,7 +13,7 @@ import {useTheme} from '../hooks';
 
 export type HomeStackParams = {
   HomeScreen: undefined;
-  AddNewGardenScreen: undefined;
+  AddNewGardenScreen: {isEditing?: boolean, gardenId?: number};
   AddGardenWaterScheduleScreen: {scheduleId: number};
   GardenScreen: {gardenId: number};
 };

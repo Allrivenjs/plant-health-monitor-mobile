@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ScrollView, StatusBar, StyleSheet, TextInput, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -11,19 +11,30 @@ import {useTheme} from '../../hooks';
 
 import {Button, Input, PlantImage, InputPicker} from '../../components';
 
-
-import {HomeScreenNavigationType} from './';
 import {useCreateNewGarden} from '../../home/hooks/useCreateNewGarden';
 
+import {levels} from '../../constants';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import {HomeStackParams} from '../../navigator';
 
-import { levels } from '../../constants';
+export type HomeScreenNavigationType = NativeStackNavigationProp<
+  HomeStackParams,
+  'AddNewGardenScreen'
+>;
 
-export const AddNewGardenScreen = () => {
+interface Props
+  extends NativeStackScreenProps<HomeStackParams, 'AddNewGardenScreen'> {}
+
+export const AddNewGardenScreen: FC<Props> = ({navigation, route}) => {
   const {colors, textStyles} = useTheme();
 
-  const {navigate} = useNavigation<HomeScreenNavigationType>();
-
-  const {imageUrl, loading, control, onSubmit} = useCreateNewGarden();
+  const {imageUrl, loading, control, onSubmit} = useCreateNewGarden(
+    route.params.isEditing as boolean,
+    route.params.gardenId as number
+  );
 
   const onClickNext = async () => {
     await onSubmit();
@@ -66,7 +77,6 @@ export const AddNewGardenScreen = () => {
               borderColor: colors.primary,
               marginVertical: 32,
             }}>
-
             <Controller
               name='name'
               control={control}
@@ -176,7 +186,7 @@ export const AddNewGardenScreen = () => {
                 leftIcon='wb-sunny'
                 iconColor={colors.lightYellow}
                 items={levels}
-                containerStyles={{marginTop: 16,}}
+                containerStyles={{marginTop: 16}}
               />
             )}
           />
@@ -185,8 +195,7 @@ export const AddNewGardenScreen = () => {
             size='large'
             buttonStyles={{marginVertical: 20}}
             onPress={onClickNext}
-            loading={loading}
-          >
+            loading={loading}>
             Siguiente
           </Button>
         </View>

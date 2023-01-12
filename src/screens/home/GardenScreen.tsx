@@ -47,7 +47,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
   const {garden, deleteGardenById} = useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
-    navigation.navigate('AddNewGardenScreen');
+    navigation.navigate('AddNewGardenScreen', { isEditing: true, gardenId: garden!.id });
   };
 
   const onClickScheduleSettings = () => {
