@@ -1,8 +1,6 @@
 import React, {FC} from 'react';
 import {ScrollView, StatusBar, StyleSheet, TextInput, View} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-
 import {Controller} from 'react-hook-form';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -28,12 +26,12 @@ export type HomeScreenNavigationType = NativeStackNavigationProp<
 interface Props
   extends NativeStackScreenProps<HomeStackParams, 'AddNewGardenScreen'> {}
 
-export const AddNewGardenScreen: FC<Props> = ({navigation, route}) => {
+export const AddNewGardenScreen: FC<Props> = ({route}) => {
   const {colors, textStyles} = useTheme();
 
   const {imageUrl, loading, control, onSubmit} = useCreateNewGarden(
     route.params.isEditing as boolean,
-    route.params.gardenId as number
+    route.params.gardenId as number,
   );
 
   const onClickNext = async () => {
@@ -164,7 +162,7 @@ export const AddNewGardenScreen: FC<Props> = ({navigation, route}) => {
             render={({field: {value, onChange}}) => (
               <InputPicker
                 name='Niveles de agua'
-                value={value}
+                value={Number(value)}
                 onChange={onChange}
                 nameOnTop
                 leftIcon='opacity'
@@ -180,7 +178,7 @@ export const AddNewGardenScreen: FC<Props> = ({navigation, route}) => {
             render={({field: {value, onChange}}) => (
               <InputPicker
                 name='Niveles de sol'
-                value={value}
+                value={Number(value)}
                 onChange={onChange}
                 nameOnTop
                 leftIcon='wb-sunny'

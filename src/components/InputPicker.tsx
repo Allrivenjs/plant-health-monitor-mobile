@@ -1,4 +1,4 @@
-import {FC, useRef, useState} from 'react';
+import {FC, useEffect, useRef, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -24,7 +24,7 @@ export interface IInputPickerItem {
 
 interface InputPickerProps {
   name?: string;
-  value?: string;
+  value: number;
   onChange?: (value: string) => void;
   placeholder?: string;
   leftIcon?: string;
@@ -44,11 +44,12 @@ export const InputPicker: FC<InputPickerProps> = ({
   nameOnTop,
   containerStyles,
   items,
+  value,
 }) => {
   const {colors, textStyles} = useTheme();
   const [open, setOpen] = useState(false);
 
-  const [inputValue, setInputValue] = useState<IInputPickerItem>(items[0]);
+  const [inputValue, setInputValue] = useState<IInputPickerItem>(items[value]);
 
   iconColor = iconColor ? iconColor : colors.black;
 
@@ -111,6 +112,10 @@ export const InputPicker: FC<InputPickerProps> = ({
       paddingVertical: 4,
     },
   });
+
+  useEffect(() => {
+    setInputValue(items[value]);
+  }, [value]);
 
   return (
     <>

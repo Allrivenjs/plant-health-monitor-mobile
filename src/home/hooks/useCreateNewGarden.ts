@@ -86,7 +86,7 @@ export const useCreateNewGarden = (
   const editAGarden = async (newGarden: NewGardenForm) => {
     setLoading(true);
     try {
-      const res = await axiosClient.put(`garden/${gardenId}`, {
+      await axiosClient.put(`garden/${gardenId}`, {
         ...newGarden,
         user_id: user!.id,
         image: imageUrl,
@@ -109,7 +109,6 @@ export const useCreateNewGarden = (
   const onSubmit = handleSubmit(isEditing ? editAGarden : postNewGarden);
 
   useEffect(() => {
-    console.log(gardenId);
     const garden = getGardenById(gardenId);
     console.log(garden);
 
