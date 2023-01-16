@@ -34,7 +34,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'HomeScreen'> {}
 export const HomeScreen: FC<Props> = ({navigation}) => {
   const {colors} = useTheme();
 
-  const {gardens, actions} = useHomeScreen();
+  const {gardens, actions, loadingActions} = useHomeScreen();
 
   const onClickCreateNewGarden = () => {
     navigation.navigate('AddNewGardenScreen', {isEditing: false});
@@ -122,7 +122,6 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
               Ultimas acciones
             </Typography>
 
-
             {/* @ts-ignore */}
             <TouchableOpacity onPress={() => navigation.navigate('Action')}>
               <Typography
@@ -137,7 +136,7 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
             </TouchableOpacity>
           </View>
 
-          <LastActions actions={actions} />
+          <LastActions actions={actions} loading={loadingActions} limit={5} />
         </View>
       </View>
     </ScrollView>

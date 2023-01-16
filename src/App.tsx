@@ -34,6 +34,7 @@ const Tab = createBottomTabNavigator<TabStackParams>();
 export const App = () => {
   const {status, verifyUserAuthentication} = useAuth();
 
+
   useEffect(() => {
     verifyUserAuthentication();
   }, []);

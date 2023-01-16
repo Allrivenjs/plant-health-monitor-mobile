@@ -72,7 +72,7 @@ export const ActionScreen = () => {
             </View>
 
             <View style={{paddingHorizontal: 20, marginVertical: 20}}>
-              <LastActions actions={actions} />
+              <LastActions actions={actions} loading={loading} />
             </View>
           </View>
         </ScrollView>

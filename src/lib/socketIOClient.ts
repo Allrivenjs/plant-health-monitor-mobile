@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
 import { config } from '../config';
 
-const socket = io(config.API_URL);
-export default socket;
+export const socket = io(config.API_URL);

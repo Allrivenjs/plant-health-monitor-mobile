@@ -1,29 +1,42 @@
-import { FC } from 'react';
+import React, {FC} from 'react';
 
 import {View} from 'react-native';
-
-import {Typography} from '../../components';
+import {Text} from 'react-native-svg';
 
 import {useTheme} from '../../hooks';
-import { Action, ActionOld } from '../../interfaces/action';
+import {Action} from '../../interfaces/action';
 
 import {ActionCard} from './';
 
 interface Props {
   actions: Action[];
-};
-export const LastActions: FC<Props> = ({ actions }) => {
+  loading: boolean;
+  limit?: number | undefined;
+}
+export const LastActions: FC<Props> = ({actions, loading, limit}) => {
   const {colors} = useTheme();
-  return (
-    <View>
-      {
-        actions.map((action) => (
-          <ActionCard
-            key={action.id}
-            action={action}
-          />
-        ))
-      }
-    </View>
-  );
+
+  if (loading) {
+    return (
+      <View>
+        <Text>loading actions</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        {
+          limit ? (
+            actions.slice(0, limit).map((action, index) => (
+              <ActionCard key={index} action={action} />
+            ))
+          ) : (
+            actions.map((action, index) => (
+              <ActionCard key={index} action={action} />
+            ))
+          )
+        }
+      </View>
+    );
+  }
 };
