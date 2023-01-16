@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
@@ -38,7 +37,7 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
   const {gardens, actions} = useHomeScreen();
 
   const onClickCreateNewGarden = () => {
-    navigation.navigate('AddNewGardenScreen', {isEditing: false,});
+    navigation.navigate('AddNewGardenScreen', {isEditing: false});
   };
 
   const styles = StyleSheet.create({
@@ -123,6 +122,8 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
               Ultimas acciones
             </Typography>
 
+
+            {/* @ts-ignore */}
             <TouchableOpacity onPress={() => navigation.navigate('Action')}>
               <Typography
                 size='body'

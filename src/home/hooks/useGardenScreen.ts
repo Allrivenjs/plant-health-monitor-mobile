@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import {Garden} from '../../interfaces/garden';
 
 import { useGardensStore } from '../../store';
+import { useWateringSockets } from './useWateringSockets';
 
 export const useGardenScreen = (gardenId: number) => {
   const [garden, setGarden] = useState<Garden | undefined>({
@@ -27,6 +28,8 @@ export const useGardenScreen = (gardenId: number) => {
 
   const getGardenById = useGardensStore(gardensStore => gardensStore.getGardenById);
   const deleteGardenById = useGardensStore(gardensStore => gardensStore.deleteGardenById);
+
+  const hello = useWateringSockets();
 
 
   useEffect(() => {

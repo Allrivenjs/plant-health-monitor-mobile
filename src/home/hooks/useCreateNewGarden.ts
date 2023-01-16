@@ -71,6 +71,7 @@ export const useCreateNewGarden = (
 
       navigate('AddGardenWaterScheduleScreen', {
         scheduleId: res.data.garden.schedule.id,
+        isEditing: false,
       });
     } catch (e) {
       console.log('Error creating new garden: ', e);

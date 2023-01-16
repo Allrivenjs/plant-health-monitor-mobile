@@ -28,7 +28,7 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
     toggleADay,
     changeDayCuantity,
     onSubmit,
-  } = useEditSchedule(route.params.scheduleId);
+  } = useEditSchedule(route.params.scheduleId, route.params.isEditing);
 
   const style = StyleSheet.create({
     screenContainer: {

@@ -9,20 +9,16 @@ import {
   GardenScreen,
 } from '../screens/home';
 
-import {useTheme} from '../hooks';
-
 export type HomeStackParams = {
   HomeScreen: undefined;
-  AddNewGardenScreen: {isEditing?: boolean, gardenId?: number};
-  AddGardenWaterScheduleScreen: {scheduleId: number};
+  AddNewGardenScreen: {isEditing?: boolean; gardenId?: number};
+  AddGardenWaterScheduleScreen: {isEditing: boolean; scheduleId: number};
   GardenScreen: {gardenId: number};
 };
 
 const {Screen, Navigator} = createNativeStackNavigator<HomeStackParams>();
 
 export const HomeStackNavigator = () => {
-  const {colors, textStyles} = useTheme();
-
   return (
     <Navigator
       initialRouteName='HomeScreen'
