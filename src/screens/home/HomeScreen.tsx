@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import {
   FlatList,
@@ -23,6 +23,7 @@ import {useHomeScreen} from '../../home/hooks/useHomeScreen';
 import {useTheme} from '../../hooks';
 
 import {HomeStackParams} from '../../navigator';
+import {Garden} from '../../interfaces/garden';
 
 export type HomeScreenNavigationType = NativeStackNavigationProp<
   HomeStackParams,
@@ -36,9 +37,27 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
 
   const {gardens, actions, loadingActions} = useHomeScreen();
 
+  const [filteredGardens, setFilteredGardens] = useState<Garden[]>(gardens);
+  const [searchValue, setSearchValue] = useState('');
+
   const onClickCreateNewGarden = () => {
     navigation.navigate('AddNewGardenScreen', {isEditing: false});
   };
+
+  const onSearchInputChange = (value: string) => {
+    setSearchValue(value);
+  };
+
+  useEffect(() => {
+    setFilteredGardens(gardens);
+    if (searchValue.length > 0) {
+      setFilteredGardens(
+        gardens.filter(({name}) =>
+          name.toLowerCase().includes(searchValue.toLowerCase()),
+        ),
+      );
+    }
+  }, [searchValue, gardens]);
 
   const styles = StyleSheet.create({
     screenContainer: {
@@ -81,7 +100,12 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
         </View>
 
         <View style={styles.searchInputContainer}>
-          <Input leftIcon='search' placeholder='Buscar planta' />
+          <Input
+            value={searchValue}
+            onChange={onSearchInputChange}
+            leftIcon='search'
+            placeholder='Buscar planta'
+          />
         </View>
 
         <FlatList
@@ -91,7 +115,7 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
             flexDirection: 'row',
             flexGrow: 0,
           }}
-          data={gardens}
+          data={filteredGardens}
           renderItem={({item}) => (
             <GardenCard
               name={item.name}

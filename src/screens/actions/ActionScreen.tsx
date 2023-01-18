@@ -11,6 +11,8 @@ import {Input, Spinner, Typography} from '../../components';
 import {LastActions} from '../../home/components';
 
 import {ActionStackParams} from '../../navigator';
+import {useEffect, useState} from 'react';
+import {Action} from '../../interfaces/action';
 
 export type ActionScreenNavigationType = NativeStackNavigationProp<
   ActionStackParams,
@@ -21,6 +23,28 @@ export const ActionScreen = () => {
   const {colors} = useTheme();
 
   const {loading, actions} = useActionScreen();
+
+  const [filteredActions, setFilteredActions] = useState<Action[]>(actions);
+  const [searchValue, setSearchValue] = useState('');
+
+  const onSearchInputChange = (value: string) => {
+    setSearchValue(value);
+  };
+
+  useEffect(() => {
+    setFilteredActions(actions);
+    if (searchValue.length > 0) {
+      setFilteredActions(
+        actions.filter(
+          ({garden, actionType}) =>
+            garden.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+            actionType.description
+              .toLowerCase()
+              .includes(searchValue.toLowerCase()),
+        ),
+      );
+    }
+  }, [searchValue, actions]);
 
   const styles = StyleSheet.create({
     screenContainer: {
@@ -68,11 +92,16 @@ export const ActionScreen = () => {
             </View>
 
             <View style={styles.searchInputContainer}>
-              <Input leftIcon='search' placeholder='Buscar acciones' />
+              <Input
+                value={searchValue}
+                onChange={onSearchInputChange}
+                leftIcon='search'
+                placeholder='Buscar acciones'
+              />
             </View>
 
             <View style={{paddingHorizontal: 20, marginVertical: 20}}>
-              <LastActions actions={actions} loading={loading} />
+              <LastActions actions={filteredActions} loading={loading} />
             </View>
           </View>
         </ScrollView>
