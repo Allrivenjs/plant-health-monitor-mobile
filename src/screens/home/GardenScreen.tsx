@@ -44,7 +44,8 @@ interface Props
 export const GardenScreen: FC<Props> = ({navigation, route}) => {
   const {colors} = useTheme();
 
-  const {garden, deleteGardenById} = useGardenScreen(route.params.gardenId);
+  const {garden, gardenInformations, deleteGardenById, deviceData} =
+    useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
     navigation.navigate('AddNewGardenScreen', {
@@ -131,7 +132,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
               </View>
 
               <InfoCard
-                content='22%'
+                content={`${deviceData.humedad}%`}
                 icon='opacity'
                 name='Humedad'
                 color={colors.blue}
@@ -140,21 +141,22 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                    data: [
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                    ],
+                      data: gardenInformations.map(({humidity}) => humidity)
+                    // data: [
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    // ],
                   },
                 ]}
               />
 
               <InfoCard
-                content='22°C'
+                content={`${deviceData.temperatura}°C`}
                 icon='device-thermostat'
                 name='Temp'
                 color={colors.red}
@@ -163,21 +165,22 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                    data: [
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                    ],
+                      data: gardenInformations.map(({temperature}) => temperature)
+                    // data: [
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    // ],
                   },
                 ]}
               />
 
               <InfoCard
-                content='22%'
+                content={`${deviceData.luz}%`}
                 icon='wb-sunny'
                 name='Luz'
                 color={colors.yellow}
@@ -186,15 +189,16 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                    data: [
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                      Math.floor(Math.random() * 100),
-                    ],
+                      data: gardenInformations.map(({sun_level}) => sun_level)
+                    // data: [
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    //   Math.floor(Math.random() * 100),
+                    // ],
                   },
                 ]}
               />

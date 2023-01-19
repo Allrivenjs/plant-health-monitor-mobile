@@ -117,6 +117,23 @@ export const AddNewGardenScreen: FC<Props> = ({route}) => {
           />
 
           <Controller
+            name='device_mac'
+            control={control}
+            render={({field: {value, onChange}}) => (
+              <Input
+                name='Mac de dispositivo PHM'
+                value={value}
+                onChange={onChange}
+                nameOnTop
+                leftIcon='router'
+                iconColor={colors.lightGreen}
+                placeholder='123:123:123:123'
+                containerStyles={{marginBottom: 16}}
+              />
+            )}
+          />
+
+          <Controller
             name='min_temperature'
             control={control}
             render={({field: {value, onChange}}) => (

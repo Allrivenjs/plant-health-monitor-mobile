@@ -17,6 +17,7 @@ interface NewGardenForm {
   min_temperature: string;
   water_levels: string;
   sun_levels: string;
+  device_mac: string;
 }
 
 export const useCreateNewGarden = (
@@ -36,6 +37,7 @@ export const useCreateNewGarden = (
       min_temperature: '',
       water_levels: '0',
       sun_levels: '0',
+      device_mac: '',
     },
   });
 
@@ -119,6 +121,7 @@ export const useCreateNewGarden = (
       setValue('max_temperature', String(garden!.max_temperature));
       setValue('min_temperature', String(garden!.min_temperature));
       setValue('sun_levels', String(garden!.sun_levels));
+      setValue('device_mac', String(garden!.device_mac));
       setValue('water_levels', String(garden!.water_levels));
     }
   }, []);

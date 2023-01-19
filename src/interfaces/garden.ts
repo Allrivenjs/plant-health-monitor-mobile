@@ -9,6 +9,7 @@ export interface Garden {
   max_temperature: number;
   water_levels: number;
   sun_levels: number;
+  device_mac: string;
   schedule: Schedule;
   created_at: Date;
   updated_at: Date;
