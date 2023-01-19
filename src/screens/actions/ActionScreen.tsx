@@ -100,7 +100,7 @@ export const ActionScreen = () => {
               />
             </View>
 
-            <View style={{paddingHorizontal: 20, marginVertical: 20}}>
+            <View style={{paddingHorizontal: 20, marginVertical: 20, paddingBottom: 48}}>
               <LastActions actions={filteredActions} loading={loading} />
             </View>
           </View>

@@ -31,7 +31,7 @@ import {useTheme} from '../../hooks';
 
 import {HomeStackParams} from '../../navigator';
 
-const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
+// const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
 
 export type GardenScreenNavigationType = NativeStackNavigationProp<
   HomeStackParams,
@@ -87,6 +87,18 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
     },
   });
 
+  const maxDataInCharts = 7;
+
+  const chartLabels = gardenInformations
+    .slice(0, maxDataInCharts)
+    .map(({created_at}) =>
+      String(
+        new Date(created_at).getHours() +
+          ':' +
+          new Date(created_at).getMinutes(),
+      ),
+    );
+
   return (
     <>
       {!garden ? (
@@ -141,16 +153,9 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                      data: gardenInformations.map(({humidity}) => humidity)
-                    // data: [
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    // ],
+                    data: gardenInformations
+                      .slice(0, maxDataInCharts)
+                      .map(({humidity}) => humidity),
                   },
                 ]}
               />
@@ -165,16 +170,9 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                      data: gardenInformations.map(({temperature}) => temperature)
-                    // data: [
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    // ],
+                    data: gardenInformations
+                      .slice(0, maxDataInCharts)
+                      .map(({temperature}) => temperature),
                   },
                 ]}
               />
@@ -189,16 +187,9 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                      data: gardenInformations.map(({sun_level}) => sun_level)
-                    // data: [
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    //   Math.floor(Math.random() * 100),
-                    // ],
+                    data: gardenInformations
+                      .slice(0, maxDataInCharts)
+                      .map(({sun_level}) => sun_level),
                   },
                 ]}
               />

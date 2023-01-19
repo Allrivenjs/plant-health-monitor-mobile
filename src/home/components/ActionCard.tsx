@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import {FC, useRef} from 'react';
 
 import {Image, StyleSheet, View} from 'react-native';
 
@@ -8,15 +8,14 @@ import {Typography} from '../../components';
 
 import {useTheme} from '../../hooks';
 
-import { Action } from '../../interfaces/action';
+import {Action, ActionTypes} from '../../interfaces/action';
 
 interface Props {
   action: Action;
-};
+}
 
-export const ActionCard: FC<Props> = ({ action }) => {
+export const ActionCard: FC<Props> = ({action}) => {
   const {shadow, colors} = useTheme();
-
 
   const styles = StyleSheet.create({
     actionCardContainer: {
@@ -30,6 +29,31 @@ export const ActionCard: FC<Props> = ({ action }) => {
       // ...shadow,
     },
   });
+
+  const actionIcon =
+    action.actionType.type === ActionTypes.WATERING
+      ? 'opacity'
+      : action.actionType.type === ActionTypes.LOW_TEMPERTURE ||
+        action.actionType.type === ActionTypes.HIGH_TEMPERTURE
+      ? 'device-thermostat'
+      : action.actionType.type === ActionTypes.LOW_SUN ||
+        action.actionType.type === ActionTypes.HIGH_SUN
+      ? 'wb-sunny'
+      : 'opacity';
+
+  const actionColor =
+    action.actionType.type === ActionTypes.WATERING
+      ? colors.lightBlue
+      : action.actionType.type === ActionTypes.LOW_TEMPERTURE ||
+        action.actionType.type === ActionTypes.LOW_SUN ||
+        action.actionType.type === ActionTypes.LOW_WATER ||
+        action.actionType.type === ActionTypes.LOW_HUMIDITY 
+      ? colors.lightBlue
+      : action.actionType.type === ActionTypes.HIGH_TEMPERTURE ||
+        action.actionType.type === ActionTypes.HIGH_SUN ||
+        action.actionType.type === ActionTypes.HIGH_HUMIDITY 
+      ? colors.lightRed
+      : colors.primary;
 
   return (
     <View style={styles.actionCardContainer}>
@@ -48,7 +72,11 @@ export const ActionCard: FC<Props> = ({ action }) => {
             width: 700,
             height: 700,
           }}
-          style={{transform: [{scale: 0.07}], position: 'absolute', borderRadius: 1000}}
+          style={{
+            transform: [{scale: 0.07}],
+            position: 'absolute',
+            borderRadius: 1000,
+          }}
         />
       </View>
       <View
@@ -57,25 +85,29 @@ export const ActionCard: FC<Props> = ({ action }) => {
           justifyContent: 'space-evenly',
           paddingHorizontal: 10,
         }}>
-        <Typography style={{fontFamily: 'Lato-Bold'}}>{action.garden.name}</Typography>
+        <Typography style={{fontFamily: 'Lato-Bold'}}>
+          {action.garden.name}
+        </Typography>
         <Typography style={{fontSize: 14}}>
           {action.actionType.description}{' '}
         </Typography>
         <Typography style={{fontSize: 12, color: colors.gray}}>
-          {`Creada el ${new Date(action.created_at).toDateString()}`}
+          {`Creada el ${new Date(action.created_at).getHours()}:${new Date(
+            action.created_at,
+          ).getMinutes()} ${new Date(action.created_at).toDateString()}`}
         </Typography>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View
           style={{
-            backgroundColor: colors.lightBlue,
+            backgroundColor: actionColor,
             width: 55,
             height: 55,
             borderRadius: 100,
           }}
         />
         <Icon
-          name='opacity'
+          name={actionIcon}
           size={32}
           color='white'
           style={{position: 'absolute'}}

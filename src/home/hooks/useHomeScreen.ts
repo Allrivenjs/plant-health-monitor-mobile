@@ -26,5 +26,6 @@ export const useHomeScreen = () => {
     loadingActions,
     gardens,
     actions,
+    fetchActions,
   };
 };

@@ -24,6 +24,8 @@ import {useTheme} from '../../hooks';
 
 import {HomeStackParams} from '../../navigator';
 import {Garden} from '../../interfaces/garden';
+import { socket } from '../../lib/socketIOClient';
+import { useActionsStore } from '../../store/useActionsStore';
 
 export type HomeScreenNavigationType = NativeStackNavigationProp<
   HomeStackParams,
@@ -35,7 +37,7 @@ interface Props extends NativeStackScreenProps<HomeStackParams, 'HomeScreen'> {}
 export const HomeScreen: FC<Props> = ({navigation}) => {
   const {colors} = useTheme();
 
-  const {gardens, actions, loadingActions} = useHomeScreen();
+  const {gardens, actions, loadingActions, fetchActions} = useHomeScreen();
 
   const [filteredGardens, setFilteredGardens] = useState<Garden[]>(gardens);
   const [searchValue, setSearchValue] = useState('');
@@ -47,6 +49,12 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
   const onSearchInputChange = (value: string) => {
     setSearchValue(value);
   };
+
+  useEffect(() => {
+    socket.on('new-action', action => {
+      fetchActions();
+    });
+  }, [])
 
   useEffect(() => {
     setFilteredGardens(gardens);

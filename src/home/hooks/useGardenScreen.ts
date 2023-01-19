@@ -51,17 +51,19 @@ export const useGardenScreen = (gardenId: number) => {
   const getGardenInformation = async (gardenId: number) => {
     try {
       const res = await axiosClient.get(`garden-information/${gardenId}`);
-      console.log(res.data.gardenInformations[0].humidity);
       setGardenInformations(res.data.gardenInformations);
-      setData({
-        temperatura: Number(res.data.gardenInformations[0].temperature.toFixed(0)),
-        humedad: Number(res.data.gardenInformations[0].humidity.toFixed(0)),
-        luz: Number(res.data.gardenInformations[0].sun_level.toFixed(0)),
-      });
+
+      if(res.data.gardenInformations.length > 0) {
+        setData({
+          temperatura: Number(res.data.gardenInformations[0].temperature.toFixed(0)),
+          humedad: Number(res.data.gardenInformations[0].humidity.toFixed(0)),
+          luz: Number(res.data.gardenInformations[0].sun_level.toFixed(0)),
+        });
+      }
     } catch (e) {
       Alert.alert(
         'Error al conectar con el servidor',
-        'Error al intentar obtener la información de los jardines, por favor ingrese de nuevo',
+        'Error al intentar obtener la información de los jardines, por favor ingrese de nuevo!',
       );
       console.log('error on login request: ', e);
     }
