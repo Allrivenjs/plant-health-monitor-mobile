@@ -99,6 +99,8 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
       ),
     );
 
+  console.log(gardenInformations.length);
+
   return (
     <>
       {!garden ? (
@@ -144,6 +146,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
               </View>
 
               <InfoCard
+                disable={gardenInformations.length > 0}
                 content={`${deviceData.humedad}%`}
                 icon='opacity'
                 name='Humedad'

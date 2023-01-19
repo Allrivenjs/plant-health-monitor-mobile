@@ -17,6 +17,7 @@ interface InfoCardProps {
   labels: string[];
   datasets: DatasetLineChart[];
   prefix?: string;
+  disable: boolean;
 }
 
 export const InfoCard: FC<InfoCardProps> = ({
@@ -28,6 +29,7 @@ export const InfoCard: FC<InfoCardProps> = ({
   labels,
   datasets,
   prefix = '',
+  disable,
 }) => {
   const {colors, textStyles} = useTheme();
   const [isDropDown, setDropDown] = useState(false);
@@ -124,7 +126,9 @@ export const InfoCard: FC<InfoCardProps> = ({
         </View>
 
         <View style={style.expandBtnContainer}>
-          <TouchableOpacity style={style.expandBtn} onPress={onToggleDropDown}>
+          <TouchableOpacity
+            style={style.expandBtn}
+            onPress={disable ? onToggleDropDown : () => console.log('nope')}>
             <Icon
               name='arrow-drop-down'
               size={28}
