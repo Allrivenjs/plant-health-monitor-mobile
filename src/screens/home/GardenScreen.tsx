@@ -164,6 +164,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
               />
 
               <InfoCard
+                disable={gardenInformations.length > 0}
                 content={`${deviceData.temperatura}°C`}
                 icon='device-thermostat'
                 name='Temp'
@@ -181,6 +182,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
               />
 
               <InfoCard
+                disable={gardenInformations.length > 0}
                 content={`${deviceData.luz}%`}
                 icon='wb-sunny'
                 name='Luz'
