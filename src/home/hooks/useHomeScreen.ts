@@ -15,6 +15,7 @@ export const useHomeScreen = () => {
   );
   const loadingActions = useActionsStore(actionsStore => actionsStore.loading);
   const actions = useActionsStore(actionsStore => actionsStore.actions);
+  const addAction = useActionsStore(actionsStore => actionsStore.addAction);
 
   useEffect(() => {
     fetchGardens();
@@ -26,6 +27,6 @@ export const useHomeScreen = () => {
     loadingActions,
     gardens,
     actions,
-    fetchActions,
+    addAction,
   };
 };

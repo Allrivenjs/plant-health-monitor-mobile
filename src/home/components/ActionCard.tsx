@@ -1,6 +1,6 @@
-import {FC, useRef} from 'react';
+import {FC, useEffect, useRef, useState} from 'react';
 
-import {Image, StyleSheet, View} from 'react-native';
+import {Animated, Image, StyleSheet, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -15,6 +15,17 @@ interface Props {
 }
 
 export const ActionCard: FC<Props> = ({action}) => {
+  const [fadeAnim] = useState(new Animated.Value(0));
+
+  //TODO: give it a much nicer animation
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   const {shadow, colors} = useTheme();
 
   const styles = StyleSheet.create({
@@ -47,16 +58,16 @@ export const ActionCard: FC<Props> = ({action}) => {
       : action.actionType.type === ActionTypes.LOW_TEMPERTURE ||
         action.actionType.type === ActionTypes.LOW_SUN ||
         action.actionType.type === ActionTypes.LOW_WATER ||
-        action.actionType.type === ActionTypes.LOW_HUMIDITY 
+        action.actionType.type === ActionTypes.LOW_HUMIDITY
       ? colors.lightBlue
       : action.actionType.type === ActionTypes.HIGH_TEMPERTURE ||
         action.actionType.type === ActionTypes.HIGH_SUN ||
-        action.actionType.type === ActionTypes.HIGH_HUMIDITY 
+        action.actionType.type === ActionTypes.HIGH_HUMIDITY
       ? colors.lightRed
       : colors.primary;
 
   return (
-    <View style={styles.actionCardContainer}>
+    <Animated.View style={{...styles.actionCardContainer, opacity: fadeAnim}}>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View
           style={{
@@ -113,6 +124,6 @@ export const ActionCard: FC<Props> = ({action}) => {
           style={{position: 'absolute'}}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 };

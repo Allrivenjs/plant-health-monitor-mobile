@@ -9,7 +9,7 @@ import {
   GardenScreen,
 } from '../screens/home';
 
-import { useWateringSockets } from '../home/hooks';
+import {useWateringSockets} from '../home/hooks';
 
 export type HomeStackParams = {
   HomeScreen: undefined;
@@ -21,7 +21,8 @@ export type HomeStackParams = {
 const {Screen, Navigator} = createNativeStackNavigator<HomeStackParams>();
 
 export const HomeStackNavigator = () => {
-  const hello = useWateringSockets();
+  useWateringSockets();
+
   return (
     <Navigator
       initialRouteName='HomeScreen'

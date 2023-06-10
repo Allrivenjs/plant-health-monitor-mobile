@@ -18,24 +18,24 @@ export const useActionsStore = create<ActionsStore>((set, get) => ({
   actions: [],
   loading: true,
   fetchActions: async () => {
-    set({loading: true});
+    set({loading: true, actions: []});
     try {
       const res = await axiosClient.get('action');
 
-      set({actions: res.data.actions});
+      return set({actions: res.data.actions, loading: false});
     } catch (e) {
       Alert.alert(
         'Error al conectar con el servidor',
         'Error al intentar obtener las acciones de los jardines del servidor, por favor ingrese de nuevo',
       );
       console.log('error on actions request: ', e);
+      set({loading: false});
     }
-    set({loading: false});
   },
-  addAction: (action: Action) => {
-    const actions = get().actions;
-    actions.push(action);
-    set({actions});
-  },
+  addAction: (action: Action) =>
+    set(state => ({
+      ...state,
+      actions: [action, ...state.actions],
+    })),
   setLoading: (loading: boolean) => set(state => ({loading})),
 }));

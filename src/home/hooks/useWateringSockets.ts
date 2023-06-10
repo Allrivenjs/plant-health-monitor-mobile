@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {socket} from '../../lib/socketIOClient';
-import { useActionsStore } from '../../store/useActionsStore';
+import {useActionsStore} from '../../store/useActionsStore';
 
 export const useWateringSockets = () => {
   const addAction = useActionsStore(actionsStore => actionsStore.addAction);
@@ -8,8 +8,8 @@ export const useWateringSockets = () => {
   useEffect(() => {
     socket.on('watering', action => {
       addAction(action);
+      console.log('llego una acción');
     });
-
 
     // socket.on('device-data', (data: DeviceData) => {
     //   console.log(data);
@@ -19,5 +19,9 @@ export const useWateringSockets = () => {
     //     luz: Number(data.luz.toFixed(0)),
     //   });
     // });
+
+    return () => {
+      socket.off('watering');
+    };
   }, []);
 };
