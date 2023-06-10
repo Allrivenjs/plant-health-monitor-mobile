@@ -27,7 +27,11 @@ export const useAuth = () => {
 
     try {
       const data = await axiosClient.get('auth/verify');
-      setUser(data.data.user);
+      setUser({
+        id: data.data.user.id,
+        name: data.data.user.name,
+        email: data.data.user.email,
+      });
       setStatus('logged');
       Alert.alert('Sesión iniciada', 'Sesión iniciada exitosamente');
     } catch(e) {

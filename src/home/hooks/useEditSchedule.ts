@@ -12,6 +12,8 @@ export interface DayOfWeek {
   dayNumber: number;
   active: boolean;
   cuantity: number;
+  hour: number;
+  minutes: number;
 }
 
 export interface EditScheduleForm {
@@ -28,6 +30,8 @@ const defaultDayOfWeek = {
   dayNumber: 1,
   active: false,
   cuantity: 0,
+  hour: 17,
+  minutes: 30,
 };
 
 const defaultSchedule = {
@@ -92,6 +96,21 @@ export const useEditSchedule = (gardenId: number, isEditing: boolean) => {
     }));
   };
 
+  const changeHourAndMinutes = (
+    day: keyof EditScheduleForm,
+    hour: number,
+    minutes: number,
+  ) => {
+    setEditScheduleFormState(prevState => ({
+      ...prevState,
+      [day]: {
+        ...prevState[day],
+        hour: hour,
+        minutes: minutes,
+      },
+    }));
+  };
+
   const onSubmit = async () => {
     setLoading(true);
 
@@ -129,36 +148,50 @@ export const useEditSchedule = (gardenId: number, isEditing: boolean) => {
           active: garden!.schedule.daysOfSchedule[0].active,
           dayNumber: garden!.schedule.daysOfSchedule[0].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[0].cuantity,
+          hour: garden!.schedule.daysOfSchedule[0].hour,
+          minutes: garden!.schedule.daysOfSchedule[0].minutes,
         },
         tuesday: {
           active: garden!.schedule.daysOfSchedule[1].active,
           dayNumber: garden!.schedule.daysOfSchedule[1].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[1].cuantity,
+          hour: garden!.schedule.daysOfSchedule[1].hour,
+          minutes: garden!.schedule.daysOfSchedule[1].minutes,
         },
         wednesday: {
           active: garden!.schedule.daysOfSchedule[2].active,
           dayNumber: garden!.schedule.daysOfSchedule[2].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[2].cuantity,
+          hour: garden!.schedule.daysOfSchedule[2].hour,
+          minutes: garden!.schedule.daysOfSchedule[2].minutes,
         },
         thursday: {
           active: garden!.schedule.daysOfSchedule[3].active,
           dayNumber: garden!.schedule.daysOfSchedule[3].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[3].cuantity,
+          hour: garden!.schedule.daysOfSchedule[3].hour,
+          minutes: garden!.schedule.daysOfSchedule[3].minutes,
         },
         friday: {
           active: garden!.schedule.daysOfSchedule[4].active,
           dayNumber: garden!.schedule.daysOfSchedule[4].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[4].cuantity,
+          hour: garden!.schedule.daysOfSchedule[4].hour,
+          minutes: garden!.schedule.daysOfSchedule[4].minutes,
         },
         saturday: {
           active: garden!.schedule.daysOfSchedule[5].active,
           dayNumber: garden!.schedule.daysOfSchedule[5].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[5].cuantity,
+          hour: garden!.schedule.daysOfSchedule[5].hour,
+          minutes: garden!.schedule.daysOfSchedule[5].minutes,
         },
         sunday: {
           active: garden!.schedule.daysOfSchedule[6].active,
           dayNumber: garden!.schedule.daysOfSchedule[6].dayNumber,
           cuantity: garden!.schedule.daysOfSchedule[6].cuantity,
+          hour: garden!.schedule.daysOfSchedule[6].hour,
+          minutes: garden!.schedule.daysOfSchedule[6].minutes,
         },
       });
     }
@@ -172,5 +205,6 @@ export const useEditSchedule = (gardenId: number, isEditing: boolean) => {
     onSubmit,
     toggleADay,
     changeDayCuantity,
+    changeHourAndMinutes,
   };
 };

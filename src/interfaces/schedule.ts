@@ -21,6 +21,8 @@ export interface DayOfSchedule {
   abbreviation: string;
   active: boolean;
   cuantity: number;
+  hour: number;
+  minutes: number;
   created_at: string;
   updated_at: string;
 }

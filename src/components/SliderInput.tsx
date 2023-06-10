@@ -14,7 +14,6 @@ interface SliderInputProps {
   onChange?: (value: number) => void;
   primaryColor?: string;
   secondaryColor?: string;
-  containerStyles?: ViewStyle;
   maximumValue: number;
   minimunValue?: number;
   unit?: string;
@@ -23,7 +22,6 @@ interface SliderInputProps {
 export const SliderInput: FC<SliderInputProps> = ({
   primaryColor = '#66B992',
   secondaryColor = 'rgba(26, 29, 28, 0.36)',
-  containerStyles,
   maximumValue,
   minimunValue = 0,
   label,
@@ -34,18 +32,6 @@ export const SliderInput: FC<SliderInputProps> = ({
   const {colors, textStyles} = useTheme();
 
   const styles = StyleSheet.create({
-    container: {
-      width: '100%',
-      justifyContent: 'center',
-
-      flex: 1,
-      backgroundColor: 'white',
-      borderRadius: 10,
-      marginHorizontal: 20,
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-      ...containerStyles,
-    },
     name: {
       ...textStyles.body,
       color: colors.lightGray,
@@ -54,8 +40,10 @@ export const SliderInput: FC<SliderInputProps> = ({
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.name}>{label}: {value} {unit}</Text>
+    <>
+      <Text style={styles.name}>
+        {label}: {value} {unit}
+      </Text>
       <Slider
         animateTransitions
         thumbTintColor={primaryColor}
@@ -69,12 +57,15 @@ export const SliderInput: FC<SliderInputProps> = ({
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}
-      >
-        <Text style={styles.name}>{minimunValue} {unit}</Text>
-        <Text style={styles.name}>{maximumValue} {unit}</Text>
+          justifyContent: 'space-between',
+        }}>
+        <Text style={styles.name}>
+          {minimunValue} {unit}
+        </Text>
+        <Text style={styles.name}>
+          {maximumValue} {unit}
+        </Text>
       </View>
-    </View>
+    </>
   );
 };

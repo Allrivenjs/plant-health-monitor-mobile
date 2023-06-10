@@ -62,6 +62,8 @@ export const useCreateNewGarden = (
   const postNewGarden = async (newGarden: NewGardenForm) => {
     setLoading(true);
 
+    console.log('user: ', user);
+
     try {
       const res = await axiosClient.post('garden', {
         ...newGarden,

@@ -1,17 +1,24 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 
-import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {Button, Input, SliderInput, Typography} from '../../components';
+import {Button, SliderInput, Typography} from '../../components';
 import {maxWaterCuantity, minWaterCuantity, weekdays} from '../../constants';
 
 import {WeekSchedule} from '../../home/components/WeekSchedule';
-import {useEditSchedule} from '../../home/hooks/useEditSchedule';
+import {
+  EditScheduleForm,
+  useEditSchedule,
+} from '../../home/hooks/useEditSchedule';
 
 import {useTheme} from '../../hooks';
 import {HomeStackParams} from '../../navigator';
+
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
 
 interface Props
   extends NativeStackScreenProps<
@@ -20,13 +27,18 @@ interface Props
   > {}
 
 export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
-  const {colors} = useTheme();
+  const {colors, textStyles} = useTheme();
+
+  const [show, setShow] = useState(false);
+  const [selectedDay, setSelectedDay] =
+    useState<keyof EditScheduleForm>('monday');
 
   const {
     loading,
     editScheduleFormState,
     toggleADay,
     changeDayCuantity,
+    changeHourAndMinutes,
     onSubmit,
   } = useEditSchedule(route.params.scheduleId, route.params.isEditing);
 
@@ -48,9 +60,38 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
       borderTopLeftRadius: 32,
       paddingHorizontal: 20,
     },
+
+    waterScheduleContainer: {
+      width: '100%',
+      justifyContent: 'center',
+      marginBottom: 20,
+      flex: 1,
+      backgroundColor: 'white',
+      borderRadius: 10,
+      marginHorizontal: 20,
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+    },
+    text: {
+      ...textStyles.body,
+      color: colors.lightGray,
+    },
   });
 
-  const onClickSubmit = () => {
+  const onPressChangeHour = (keyName: keyof EditScheduleForm) => {
+    setSelectedDay(keyName);
+    setShow(true);
+  };
+
+  const onChangeDatePicker = (e: DateTimePickerEvent) => {
+    const date = new Date(e.nativeEvent.timestamp!);
+
+    changeHourAndMinutes(selectedDay, date.getHours(), date.getMinutes());
+
+    setShow(false);
+  };
+
+  const onPressSubmit = () => {
     onSubmit();
   };
 
@@ -75,22 +116,42 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
           {weekdays.map(
             ({keyName, name}, index) =>
               editScheduleFormState[keyName].active && (
-                <SliderInput
-                  primaryColor={colors.lightBlue}
-                  key={weekdays[index].dayNumber}
-                  value={editScheduleFormState[keyName].cuantity}
-                  label={`${name} cantidad`}
-                  maximumValue={maxWaterCuantity}
-                  minimunValue={minWaterCuantity}
-                  containerStyles={{marginBottom: 20}}
-                  onChange={e => changeDayCuantity(keyName, Number(e))}
-                  unit='ml'
-                />
+                <View
+                  style={style.waterScheduleContainer}
+                  key={weekdays[index].dayNumber}>
+                  <SliderInput
+                    primaryColor={colors.lightBlue}
+                    value={editScheduleFormState[keyName].cuantity}
+                    label={`${name} cantidad`}
+                    maximumValue={maxWaterCuantity}
+                    minimunValue={minWaterCuantity}
+                    onChange={e => changeDayCuantity(keyName, Number(e))}
+                    unit='ml'
+                  />
+                  <View
+                    style={{
+                      marginTop: 16,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={style.text}>
+                      Hora de regado: {editScheduleFormState[keyName].hour}:
+                      {editScheduleFormState[keyName].minutes}
+                    </Text>
+                    <Button
+                      onPress={() => onPressChangeHour(keyName)}
+                      size='small'
+                      loading={loading}>
+                      Cambiar hora
+                    </Button>
+                  </View>
+                </View>
               ),
           )}
 
           <Button
-            onPress={onClickSubmit}
+            onPress={onPressSubmit}
             size='large'
             buttonStyles={{marginBottom: 20, marginTop: 4}}
             loading={loading}>
@@ -98,6 +159,16 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
           </Button>
         </View>
       </View>
+
+      {show && (
+        <DateTimePicker
+          testID='dateTimePicker'
+          value={new Date()}
+          mode={'time'}
+          is24Hour={true}
+          onChange={e => onChangeDatePicker(e)}
+        />
+      )}
     </ScrollView>
   );
 };
