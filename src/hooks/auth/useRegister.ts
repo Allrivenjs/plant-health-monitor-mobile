@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {FieldValues, useForm} from 'react-hook-form';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 import {axiosClient} from '../../lib/axiosClient';
 
-import { storeLocalValue } from '../../localStore';
-import { useUserStore } from '../../store/useUserStore';
+import {storeLocalValue} from '../../localStore';
+import {useUserStore} from '../../store/useUserStore';
 
 export const useRegister = () => {
   const {
@@ -21,12 +21,12 @@ export const useRegister = () => {
   });
 
   const setStatus = useUserStore(userStore => userStore.setStatus);
-  const setUser = useUserStore((user) => user.setUser);
+  const setUser = useUserStore(user => user.setUser);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = handleSubmit(async ({name, email, password}) => {
     setStatus('verifiying');
-    console.log({name, email, password});
+
     setLoading(true);
     try {
       const res = await axiosClient.post('auth/register', {
@@ -48,7 +48,6 @@ export const useRegister = () => {
     }
     setLoading(false);
   });
-
 
   return {
     control,

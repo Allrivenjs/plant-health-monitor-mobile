@@ -37,7 +37,6 @@ export const useLogin = () => {
         username: email,
         password,
       });
-      console.log('res: ', res);
 
       await storeLocalValue('token', res.data.token);
       setUser(res.data.user);

@@ -1,8 +1,13 @@
-import {FC, useEffect, useRef, useState} from 'react';
+import {FC} from 'react';
 
-import {Animated, Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
+
+import Animated, {Layout, LightSpeedInLeft} from 'react-native-reanimated';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import moment from 'moment';
+import 'moment/locale/es.js';
 
 import {Typography} from '../../components';
 
@@ -15,17 +20,6 @@ interface Props {
 }
 
 export const ActionCard: FC<Props> = ({action}) => {
-  const [fadeAnim] = useState(new Animated.Value(0));
-
-  //TODO: give it a much nicer animation
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-  }, []);
-
   const {shadow, colors} = useTheme();
 
   const styles = StyleSheet.create({
@@ -67,7 +61,10 @@ export const ActionCard: FC<Props> = ({action}) => {
       : colors.primary;
 
   return (
-    <Animated.View style={{...styles.actionCardContainer, opacity: fadeAnim}}>
+    <Animated.View
+      entering={LightSpeedInLeft}
+      layout={Layout.springify()}
+      style={{...styles.actionCardContainer}}>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View
           style={{
@@ -100,12 +97,10 @@ export const ActionCard: FC<Props> = ({action}) => {
           {action.garden.name}
         </Typography>
         <Typography style={{fontSize: 14}}>
-          {action.actionType.description}{' '}
+          {action.actionType.description}
         </Typography>
         <Typography style={{fontSize: 12, color: colors.gray}}>
-          {`Creada el ${new Date(action.created_at).getHours()}:${new Date(
-            action.created_at,
-          ).getMinutes()} ${new Date(action.created_at).toDateString()}`}
+          Creado {moment(action.created_at).calendar()}
         </Typography>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

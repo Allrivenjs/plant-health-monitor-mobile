@@ -99,8 +99,6 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
       ),
     );
 
-  // console.log(gardenInformations.length);
-
   return (
     <>
       {!garden ? (

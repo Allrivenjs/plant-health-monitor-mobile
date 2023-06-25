@@ -62,8 +62,6 @@ export const useCreateNewGarden = (
   const postNewGarden = async (newGarden: NewGardenForm) => {
     setLoading(true);
 
-    console.log('user: ', user);
-
     try {
       const res = await axiosClient.post('garden', {
         ...newGarden,
@@ -115,8 +113,6 @@ export const useCreateNewGarden = (
 
   useEffect(() => {
     const garden = getGardenById(gardenId);
-    console.log(garden);
-
     if (garden && isEditing) {
       setValue('name', garden!.name);
       setValue('plant_type', garden!.plant_type);
