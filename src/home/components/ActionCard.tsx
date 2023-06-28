@@ -2,8 +2,6 @@ import {FC} from 'react';
 
 import {Image, StyleSheet, View} from 'react-native';
 
-import Animated, {Layout, LightSpeedInLeft} from 'react-native-reanimated';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import moment from 'moment';
@@ -21,6 +19,8 @@ interface Props {
 
 export const ActionCard: FC<Props> = ({action}) => {
   const {shadow, colors} = useTheme();
+
+  moment.locale('es');
 
   const styles = StyleSheet.create({
     actionCardContainer: {
@@ -61,10 +61,7 @@ export const ActionCard: FC<Props> = ({action}) => {
       : colors.primary;
 
   return (
-    <Animated.View
-      entering={LightSpeedInLeft}
-      layout={Layout.springify()}
-      style={{...styles.actionCardContainer}}>
+    <View style={{...styles.actionCardContainer}}>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View
           style={{
@@ -100,7 +97,7 @@ export const ActionCard: FC<Props> = ({action}) => {
           {action.actionType.description}
         </Typography>
         <Typography style={{fontSize: 12, color: colors.gray}}>
-          Creado {moment(action.created_at).calendar()}
+          Creado {moment(action.created_at).subtract(5, 'hours').calendar()}
         </Typography>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -119,6 +116,6 @@ export const ActionCard: FC<Props> = ({action}) => {
           style={{position: 'absolute'}}
         />
       </View>
-    </Animated.View>
+    </View>
   );
 };

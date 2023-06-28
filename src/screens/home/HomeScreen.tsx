@@ -14,7 +14,7 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 
-import {Button, Input, Typography} from '../../components';
+import {Input, Typography} from '../../components';
 import {AppMenu} from '../../components/AppMenu';
 
 import {CreateGardenCard, GardenCard, LastActions} from '../../home/components';
@@ -24,8 +24,6 @@ import {useTheme} from '../../hooks';
 
 import {HomeStackParams} from '../../navigator';
 import {Garden} from '../../interfaces/garden';
-import {useActionsStore} from '../../store/useActionsStore';
-import {ActionTypes} from '../../interfaces/action';
 
 export type HomeScreenNavigationType = NativeStackNavigationProp<
   HomeStackParams,
@@ -38,7 +36,6 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
   const {colors} = useTheme();
 
   const {gardens, actions, loadingActions} = useHomeScreen();
-  const {addAction} = useActionsStore();
 
   const [filteredGardens, setFilteredGardens] = useState<Garden[]>(gardens);
   const [searchValue, setSearchValue] = useState('');
@@ -134,21 +131,6 @@ export const HomeScreen: FC<Props> = ({navigation}) => {
             </View>
           }
         />
-
-        <Button
-          size='small'
-          onPress={() =>
-            addAction({
-              id: 123,
-              garden: gardens[0],
-              payload: 'lol',
-              actionType: ActionTypes.LOW_SUN,
-              created_at: new Date(),
-              updated_at: new Date(),
-            })
-          }>
-          Add test
-        </Button>
 
         <View style={{paddingHorizontal: 20, marginVertical: 20}}>
           <View

@@ -15,6 +15,9 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import moment from 'moment';
+import 'moment/locale/es.js';
+
 import {
   Button,
   Spinner,
@@ -30,6 +33,8 @@ import {useGardenScreen} from '../../home/hooks';
 import {useTheme} from '../../hooks';
 
 import {HomeStackParams} from '../../navigator';
+import { Text } from 'react-native-svg';
+import { ReloadButton } from '../../components/ReloadButton';
 
 // const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
 
@@ -44,7 +49,7 @@ interface Props
 export const GardenScreen: FC<Props> = ({navigation, route}) => {
   const {colors} = useTheme();
 
-  const {garden, gardenInformations, deleteGardenById, deviceData} =
+  const {garden, getGardenInformation, gardenInformations, deleteGardenById, deviceData} =
     useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
@@ -89,13 +94,15 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
 
   const maxDataInCharts = 7;
 
+  moment.locale('es');
+
   const chartLabels = gardenInformations
     .slice(0, maxDataInCharts)
     .map(({created_at}) =>
       String(
-        new Date(created_at).getHours() +
-          ':' +
-          new Date(created_at).getMinutes(),
+        moment(created_at).subtract(5, 'hours').hours() 
+        + ':' +
+        moment(created_at).subtract(5, 'hours').minutes() 
       ),
     );
 
@@ -108,6 +115,9 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
           <StatusBar backgroundColor={colors.white} barStyle='dark-content' />
           <View style={style.screenContainer}>
             <View style={style.plantContainer}>
+              <ReloadButton
+                onTouch={() => getGardenInformation(garden.id)}
+              />
               <PlantImage source={garden!.image} />
               <View
                 style={{

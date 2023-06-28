@@ -91,6 +91,7 @@ export const useGardenScreen = (gardenId: number) => {
     garden,
     deviceData,
     gardenInformations,
+    getGardenInformation,
 
     deleteGardenById,
   };

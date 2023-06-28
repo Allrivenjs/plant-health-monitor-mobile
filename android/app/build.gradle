@@ -219,10 +219,10 @@ android {
         }
 
         release {
-          storeFile file('phm_key.keystore')
-          storePassword 'password'
-          keyAlias 'phm_alias'
-          keyPassword 'password'
+          storeFile file('phm.keystore')
+          storePassword 'phm-mobile'
+          keyAlias 'phm'
+          keyPassword 'phm-mobile'
         }
     }
     buildTypes {
