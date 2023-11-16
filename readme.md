@@ -1,29 +1,53 @@
 # Plant health monitor mobile
 
-### run project
+### Run project
 
-first, run the react native bundler
+First, run the react native bundler
 
 ```
 yarn start
 ```
 
-then, run the app on android and open the emulator
+Then, run the app on android and open the emulator
 
 ```
 yarn android
 ```
 
-### build apk
+### Build apk
 
-to build the release apk for android
+To build the release apk for android, first you have to create a key.
 
-keytool -genkey -v -keystore phm.keystore -alias phm -keyalg RSA -keysize 2048 -validity 10000
+```
+keytool -genkey -v -keystore phm-mobile.keystore -alias phm-mobile -keyalg RSA -keysize 2048 -validity 10000
+```
 
-### other commands
+Make sure the key is store in the folder
 
-delete app from the device completly. make shure you have the device connected in debug mode
+```
+mv phm-mobile.keystore ./android/app/phm-mobile.keystore
+```
+
+Add the key in the ./android/app/build.gradle file.
+
+Then, finally, run the gradlew builder
+
+```
+cd ./android/app && ./gradlew assambleRelease
+```
+
+The output apk is going to be located in ./android/app/build/outputs/apk/release
+
+### Other commands
+
+Delete app from the device completly. make sure you have the device connected in debug mode
 
 ```
 adb uninstall com.planthealthmonitorapp
+```
+
+To build debug apk run the following command:
+
+```
+cd ./android/app && ./gradlew assambleDebug
 ```
