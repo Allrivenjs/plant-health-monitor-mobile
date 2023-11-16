@@ -31,8 +31,11 @@ export const useGardenScreen = (gardenId: number) => {
     },
   });
 
-  const [gardenInformations, setGardenInformations] =
-    useState<GardenInformation[]>([]);
+  const [gardenInformations, setGardenInformations] = useState<
+    GardenInformation[]
+  >([]);
+
+  const maxDataInCharts = 7;
 
   const getGardenById = useGardensStore(
     gardensStore => gardensStore.getGardenById,
@@ -53,9 +56,11 @@ export const useGardenScreen = (gardenId: number) => {
       const res = await axiosClient.get(`garden-information/${gardenId}`);
       setGardenInformations(res.data.gardenInformations);
 
-      if(res.data.gardenInformations.length > 0) {
+      if (res.data.gardenInformations.length > 0) {
         setData({
-          temperatura: Number(res.data.gardenInformations[0].temperature.toFixed(0)),
+          temperatura: Number(
+            res.data.gardenInformations[0].temperature.toFixed(0),
+          ),
           humedad: Number(res.data.gardenInformations[0].humidity.toFixed(0)),
           luz: Number(res.data.gardenInformations[0].sun_level.toFixed(0)),
         });
@@ -90,7 +95,7 @@ export const useGardenScreen = (gardenId: number) => {
   return {
     garden,
     deviceData,
-    gardenInformations,
+    gardenInformations: gardenInformations.slice(0, maxDataInCharts).reverse(),
     getGardenInformation,
 
     deleteGardenById,

@@ -6,14 +6,14 @@ import {Day} from '../home/components';
 import {DayOfSchedule} from '../interfaces/schedule';
 
 import {useTheme} from '../hooks';
-import {maxWaterCuantity, minWaterCuantity} from '../constants';
+import {maxSecondsCuantity, minSecondsCuantity} from '../constants';
 
 const minWeekScheduleBarHeight = 0;
 const maxWeekScheduleBarHeight = 100;
 
 export const mapWaterValuesToHeightValues = (value: number) => {
   return (
-    ((value - minWaterCuantity) / (maxWaterCuantity - minWaterCuantity)) *
+    ((value - minSecondsCuantity) / (maxSecondsCuantity - minSecondsCuantity)) *
       (maxWeekScheduleBarHeight - minWeekScheduleBarHeight) +
     0
   );

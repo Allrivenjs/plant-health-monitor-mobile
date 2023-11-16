@@ -18,6 +18,7 @@ interface Props {
 }
 
 export const ActionCard: FC<Props> = ({action}) => {
+  console.log({created_at: new Date(action.created_at).getHours()})
   const {shadow, colors} = useTheme();
 
   moment.locale('es');
@@ -97,7 +98,7 @@ export const ActionCard: FC<Props> = ({action}) => {
           {action.actionType.description}
         </Typography>
         <Typography style={{fontSize: 12, color: colors.gray}}>
-          Creado {moment(action.created_at).subtract(5, 'hours').calendar()}
+          Creado {moment(action.created_at).calendar()}
         </Typography>
       </View>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

@@ -51,7 +51,7 @@ export const SliderInput: FC<SliderInputProps> = ({
         maximumTrackTintColor={secondaryColor}
         maximumValue={maximumValue}
         value={value}
-        step={10}
+        step={1}
         onValueChange={value => onChange(value as number)}
       />
       <View

@@ -78,5 +78,5 @@ export const levels: IInputPickerItem[] = [
 ];
 
 
-export const maxWaterCuantity = 1000;
-export const minWaterCuantity = 0;
+export const maxSecondsCuantity = 30;
+export const minSecondsCuantity = 0;

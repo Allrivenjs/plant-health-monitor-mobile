@@ -5,7 +5,7 @@ import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {Button, SliderInput, Typography} from '../../components';
-import {maxWaterCuantity, minWaterCuantity, weekdays} from '../../constants';
+import {maxSecondsCuantity, minSecondsCuantity, weekdays} from '../../constants';
 
 import {WeekSchedule} from '../../home/components/WeekSchedule';
 import {
@@ -19,6 +19,7 @@ import {HomeStackParams} from '../../navigator';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 interface Props
   extends NativeStackScreenProps<
@@ -123,10 +124,10 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
                     primaryColor={colors.lightBlue}
                     value={editScheduleFormState[keyName].cuantity}
                     label={`${name} cantidad`}
-                    maximumValue={maxWaterCuantity}
-                    minimunValue={minWaterCuantity}
+                    maximumValue={maxSecondsCuantity}
+                    minimunValue={minSecondsCuantity}
                     onChange={e => changeDayCuantity(keyName, Number(e))}
-                    unit='ml'
+                    unit='segundos'
                   />
                   <View
                     style={{
@@ -136,8 +137,11 @@ export const AddGardenWaterScheduleScreen: FC<Props> = ({route}) => {
                       alignItems: 'center',
                     }}>
                     <Text style={style.text}>
-                      Hora de regado: {editScheduleFormState[keyName].hour}:
-                      {editScheduleFormState[keyName].minutes}
+                      Hora de regado:{' '}
+                      {moment({
+                        hour: editScheduleFormState[keyName].hour,
+                        minutes: editScheduleFormState[keyName].minutes,
+                      }).format('H:mm A')}
                     </Text>
                     <Button
                       onPress={() => onPressChangeHour(keyName)}

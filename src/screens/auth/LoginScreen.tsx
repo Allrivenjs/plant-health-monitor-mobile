@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { Controller } from 'react-hook-form';
+import {Controller} from 'react-hook-form';
 import {
   ScrollView,
   StatusBar,

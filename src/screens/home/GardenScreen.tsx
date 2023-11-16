@@ -33,8 +33,8 @@ import {useGardenScreen} from '../../home/hooks';
 import {useTheme} from '../../hooks';
 
 import {HomeStackParams} from '../../navigator';
-import { Text } from 'react-native-svg';
-import { ReloadButton } from '../../components/ReloadButton';
+
+import {ReloadButton} from '../../components/ReloadButton';
 
 // const chartLabels = ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'];
 
@@ -49,8 +49,10 @@ interface Props
 export const GardenScreen: FC<Props> = ({navigation, route}) => {
   const {colors} = useTheme();
 
-  const {garden, getGardenInformation, gardenInformations, deleteGardenById, deviceData} =
+  const {garden, getGardenInformation, deleteGardenById, deviceData} =
     useGardenScreen(route.params.gardenId);
+
+  let {gardenInformations} = useGardenScreen(route.params.gardenId);
 
   const onClickInfoSettings = () => {
     navigation.navigate('AddNewGardenScreen', {
@@ -92,19 +94,11 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
     },
   });
 
-  const maxDataInCharts = 7;
-
   moment.locale('es');
 
-  const chartLabels = gardenInformations
-    .slice(0, maxDataInCharts)
-    .map(({created_at}) =>
-      String(
-        moment(created_at).subtract(5, 'hours').hours() 
-        + ':' +
-        moment(created_at).subtract(5, 'hours').minutes() 
-      ),
-    );
+  const chartLabels = gardenInformations.map(({created_at}) =>
+    String(moment(created_at).format('LT')),
+  );
 
   return (
     <>
@@ -115,9 +109,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
           <StatusBar backgroundColor={colors.white} barStyle='dark-content' />
           <View style={style.screenContainer}>
             <View style={style.plantContainer}>
-              <ReloadButton
-                onTouch={() => getGardenInformation(garden.id)}
-              />
+              <ReloadButton onTouch={() => getGardenInformation(garden.id)} />
               <PlantImage source={garden!.image} />
               <View
                 style={{
@@ -164,9 +156,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                    data: gardenInformations
-                      .slice(0, maxDataInCharts)
-                      .map(({humidity}) => humidity),
+                    data: gardenInformations.map(({humidity}) => humidity),
                   },
                 ]}
               />
@@ -182,9 +172,9 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                    data: gardenInformations
-                      .slice(0, maxDataInCharts)
-                      .map(({temperature}) => temperature),
+                    data: gardenInformations.map(
+                      ({temperature}) => temperature,
+                    ),
                   },
                 ]}
               />
@@ -200,9 +190,7 @@ export const GardenScreen: FC<Props> = ({navigation, route}) => {
                 labels={chartLabels}
                 datasets={[
                   {
-                    data: gardenInformations
-                      .slice(0, maxDataInCharts)
-                      .map(({sun_level}) => sun_level),
+                    data: gardenInformations.map(({sun_level}) => sun_level),
                   },
                 ]}
               />
